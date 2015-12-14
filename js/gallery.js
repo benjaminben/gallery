@@ -1,3 +1,7 @@
-var sup = document.getElementById('sup');
+(function() {
 
-sup.style.color = "blue";
+'use strict';
+
+angular.module('gallery', ['ngResource']);
+
+})();

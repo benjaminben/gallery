@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="gallery">
 <head>
   <meta charset="UTF-8">
   <title>gallery</title>
   <link rel="stylesheet" type="text/css" href="css/gallery.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="https://code.angularjs.org/1.4.8/angular-resource.min.js"></script>
 </head>
-<body>
-  <p id="sup">hullo world</p>
+<body ng-controller="GalleryController as vm">
+  <p id="sup">{{vm.message}}</p>
 </body>
   <script src="js/gallery.js"></script>
+  <script src="js/gallery.controller.js"></script>
+  <script src="js/resources/install.resource.js"></script>
 </html>
