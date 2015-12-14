@@ -2,15 +2,26 @@
 <html lang="en" ng-app="gallery">
 <head>
   <meta charset="UTF-8">
-  <title>gallery</title>
+  <title>REM.ART</title>
   <link rel="stylesheet" type="text/css" href="css/gallery.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-  <script src="https://code.angularjs.org/1.4.8/angular-resource.min.js"></script>
 </head>
 <body ng-controller="GalleryController as vm">
-  <p id="sup">{{vm.message}}</p>
+  <header>
+    <span id="logo">rem</span>
+    <span id="sup">{{vm.message}}</span>
+    <span id="menu">menu</span>
+  </header>
+  <main>
+    <div id="installContainer">
+      <div class="install" ng-repeat="install in vm.installs">
+        <h2>{{install.title}}</h2>
+        <h3>{{install.artist}}</h3>
+        <br>
+    </div>
+  </main>
 </body>
   <script src="js/gallery.js"></script>
+  <script src="js/installs/installs.dataservice.js"></script>
   <script src="js/gallery.controller.js"></script>
-  <script src="js/resources/install.resource.js"></script>
 </html>

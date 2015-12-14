@@ -1,14 +1,16 @@
 (function() {
-'use strict';
+  'use strict';
 
-angular.module('gallery')
-  .controller('GalleryController', GalleryController);
+  angular.module('gallery')
+    .controller('GalleryController', GalleryController);
 
-GalleryController.$inject = ['Install'];
+  GalleryController.$inject = ["installsDataService"];
 
-function GalleryController(Install) {
-  var vm = this;
-  vm.message = "HI WORLD HOW ARE YOU?";
-}
+  function GalleryController(installsDataService) {
+    var vm = this;
+    vm.message = "HI WORLD HOW ARE YOU?";
+
+    vm.installs = installsDataService;
+  };
 
 })();
