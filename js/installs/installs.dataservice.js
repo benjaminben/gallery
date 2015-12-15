@@ -11,11 +11,13 @@ angular.module("gallery")
       {
         title: 'The Grave',
         artist: 'mason',
+        shorthand: 'grave',
         scriptPath: 'null (for now)'
       },
       {
         title: 'test',
         artist: 'someone',
+        shorthand: 'test',
         scriptPath: 'null (for now)'
       }
     ];
