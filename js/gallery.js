@@ -10,7 +10,7 @@
 
   function router ($stateProvider, $urlRouterProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise("/");
+    // $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('home', {
         url: '/',
