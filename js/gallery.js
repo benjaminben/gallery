@@ -6,9 +6,11 @@
     .module('gallery', ['ui.router'])
     .config(router);
 
-  router.$inject = ["$stateProvider"];
+  router.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"];
 
-  function router ($stateProvider) {
+  function router ($stateProvider, $urlRouterProvider, $locationProvider) {
+    // $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('home', {
         url: '/',

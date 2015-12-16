@@ -1,8 +1,7 @@
 <main>
   <div id="installContainer" ng-controller="InstallController as noodles">
-    <p ng-click="noodles.$log.log(1+1)">flurff</p>
     <div class="install" ng-repeat="install in noodles.installs">
-      <h2 ng-click="gallery.setInstallPath(install.shorthand); noodles.$log.log(gallery.selectedInstall.path)">
+      <h2 ng-click="gallery.setSelectedInstall(install.title, install.artist); gallery.setInstallPath(install.pathName); gallery.$log.log(gallery.selectedInstall)">
         <a ui-sref="install({title: '{{install.title}}'})">{{install.title}}</a>
       </h2>
       <h3>{{install.artist}}</h3>

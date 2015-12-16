@@ -5,8 +5,6 @@
   var effect, controls;
   var element, container;
 
-  console.log('hello');
-
   var clock = new THREE.Clock();
 
   init();
@@ -136,16 +134,17 @@
     // var firstStone = new Stone(0, 20, 0);
 
     var stones = [stone];
-    console.log(stones);
+    // console.log(stones);
 
-    for (var i=0; i<5; i++) {
-      var newStone = stone;
-      stones.push(newStone);
-      console.log(stones[i].position.z);
-      newStone.position.z = stones[stones.length - 1].position.z + 1
-    };
+    // for (var i=0; i<5; i++) {
+    //   var newStone = stone;
+    //   newStone.position.z = stones[stones.length - 1].position.z + 1;
+    //   stones.push(newStone);
+    //   // console.log(stones[i].position.z);
+    // };
 
     stones.forEach(function(stone) {
+      // console.log(stone);
       scene.add(stone);
     });
 
@@ -186,16 +185,17 @@
   }
 
   function animate(t) {
-    var elapsedSeconds = clock.getElapsedTime();
-
-    cube.rotation.x = Date.now() * 0.0005;
-    cube.rotation.y = Date.now() * 0.0002;
-    cube.rotation.z = Date.now() * 0.001;
+    if (landscape) {
+      var elapsedSeconds = clock.getElapsedTime();
+      cube.rotation.x = Date.now() * 0.0005;
+      cube.rotation.y = Date.now() * 0.0002;
+      cube.rotation.z = Date.now() * 0.001;
+    }
 
     requestAnimationFrame(animate);
-
     update(clock.getDelta());
     render(clock.getDelta());
+
   }
 
   function fullscreen() {
@@ -210,5 +210,4 @@
     }
   }
 
-  console.log('poof');
 </script>

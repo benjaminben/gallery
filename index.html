@@ -12,8 +12,10 @@
   <script src="/js/third-party/threejs/StereoEffect.js"></script>
   <script src="/js/third-party/threejs/DeviceOrientationControls.js"></script>
   <script src="/js/third-party/threejs/OrbitControls.js"></script>
+
+  <base href="/">
 </head>
-<body ng-controller="GalleryController as gallery">
+<body ng-controller="GalleryController as gallery" rem-resize>
   <header ng-show="gallery.displayHeader">
     <span id="logo"><a ui-sref="home">rem</a></span>
     <span id="sup">{{gallery.message}}</span>
@@ -24,8 +26,8 @@
     <p>texty</p>
   </footer>
 </body>
-  <script src="js/soBS.js"></script>
   <script src="js/gallery.js"></script>
+  <script src="js/remResize.directive.js"></script>
   <script src="js/installs/installs.dataservice.js"></script>
   <script src="js/controllers/gallery.controller.js"></script>
   <script src="js/controllers/install.controller.js"></script>

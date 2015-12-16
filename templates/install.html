@@ -1,6 +1,7 @@
-<h1>Installation</h1>
-<p>{{install.selectedInstall.title}}</p>
-<p>{{gallery.midUrl}}</p>
-
 <ng-include src="gallery.selectedInstall.path"></ng-include>
+
+<div ng-show="install.showDetails()" style="position: absolute;">
+  <h1>{{gallery.selectedInstall.title}}</h1>
+  <h2>{{gallery.selectedInstall.artist}}</h2>
+</div>
 

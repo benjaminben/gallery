@@ -15,7 +15,7 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  /*z-index: 1000;*/
+  background: white;
 }
 
 h2, h3 {

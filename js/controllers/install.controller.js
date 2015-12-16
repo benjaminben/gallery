@@ -13,6 +13,11 @@
     vm.installs = installsDataService;
     vm.selectedInstall = {};
     vm.selectedInstall.title = $stateParams.title;
+    vm.selectedInstall.artist = $stateParams.artist;
+
+    vm.showDetails = function() {
+      return !landscape;
+    }
   }
 
 
