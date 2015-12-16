@@ -77,7 +77,7 @@
     scene.add( spotLight2 );
 
     var floorTexture = THREE.ImageUtils.loadTexture(
-      '/js/installs/grave/textures/patterns/grass.png'
+      'js/installs/grave/textures/patterns/grass.png'
     );
     floorTexture.wrapS = THREE.RepeatWrapping;
     floorTexture.wrapT = THREE.RepeatWrapping;
@@ -112,7 +112,7 @@
     cube.position.z = 100;
     scene.add(cube);
 ////////////////////////////////////////////////////////////////////////
-    stoneMap = THREE.ImageUtils.loadTexture('/js/installs/grave/textures/patterns/tombstone-texture.png');
+    stoneMap = THREE.ImageUtils.loadTexture('js/installs/grave/textures/patterns/tombstone-texture.png');
     stoneGeometry = new THREE.CubeGeometry(0.75, 18.75, 7.5);
     stoneMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: stoneMap});
     stone = new THREE.Mesh(stoneGeometry, stoneMaterial);
