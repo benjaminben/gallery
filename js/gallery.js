@@ -10,13 +10,13 @@
 
   function router ($stateProvider, $urlRouterProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
-    // $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'templates/home.html',
-        controller: 'GalleryController',
-        controllerAs: 'gallery'
+        templateUrl: 'templates/home.html'
+        // controller: 'GalleryController',
+        // controllerAs: 'gallery'
       })
       .state('install', {
         url: '/install/:title',

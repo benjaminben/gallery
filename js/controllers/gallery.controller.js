@@ -19,7 +19,6 @@ var landscape;
     vm.displayHeader = true;
     vm.displayFooter = true;
 
-    vm.midUrl = '';
     vm.selectedInstall = {};
     vm.setSelectedInstall = setSelectedInstall;
     vm.selectedInstall.path;
@@ -35,6 +34,7 @@ var landscape;
 
     function setInstallPath(url) {
       vm.selectedInstall.path = 'js/installs/'+ url +'/'+ url +'.html';
+      console.log(vm.selectedInstall.path);
     }
 
 
