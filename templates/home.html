@@ -1,6 +1,6 @@
 <main>
-  <div id="installContainer" ng-controller="InstallController as noodles">
-    <div class="install" ng-repeat="install in noodles.installs">
+  <div id="installContainer">
+    <div class="install" ng-repeat="install in gallery.installs">
       <img class="previewPic" src="{{install.previewPic}}">
       <div class="installDetails">
         <h2 ng-click="gallery.setSelectedInstall(install.title, install.artist); gallery.setInstallPath(install.pathName); gallery.$log.log(gallery.selectedInstall)">

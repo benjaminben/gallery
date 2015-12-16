@@ -15,8 +15,8 @@
       .state('home', {
         url: '/',
         templateUrl: 'templates/home.html',
-        controller: 'HomeController',
-        controllerAs: 'home'
+        controller: 'GalleryController',
+        controllerAs: 'gallery'
       })
       .state('install', {
         url: '/install/:title',
