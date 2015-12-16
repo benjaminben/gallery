@@ -11,17 +11,20 @@ angular.module("gallery")
       {
         title: 'The Grave',
         artist: 'mason',
-        pathName: 'grave'
+        pathName: 'grave',
+        previewPic: 'https://i.imgur.com/PtotLL6.jpg'
       },
       {
         title: 'test',
         artist: 'someone',
-        pathName: 'test'
+        pathName: 'test',
+        previewPic: 'https://i.imgur.com/wrbWicL.jpg'
       },
       {
         title: 'blue test',
         artist: 'someone else',
-        pathName: 'bluetest'
+        pathName: 'bluetest',
+        previewPic: 'https://i.imgur.com/Fdyq3fa.jpg'
       }
     ];
 

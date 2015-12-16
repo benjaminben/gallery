@@ -1,10 +1,13 @@
 <main>
   <div id="installContainer" ng-controller="InstallController as noodles">
     <div class="install" ng-repeat="install in noodles.installs">
-      <h2 ng-click="gallery.setSelectedInstall(install.title, install.artist); gallery.setInstallPath(install.pathName); gallery.$log.log(gallery.selectedInstall)">
-        <a ui-sref="install({title: '{{install.title}}'})">{{install.title}}</a>
-      </h2>
-      <h3>{{install.artist}}</h3>
-      <br>
+      <img class="previewPic" src="{{install.previewPic}}">
+      <div class="installDetails">
+        <h2 ng-click="gallery.setSelectedInstall(install.title, install.artist); gallery.setInstallPath(install.pathName); gallery.$log.log(gallery.selectedInstall)">
+          <a ui-sref="install({title: '{{install.title}}'})">{{install.title}}</a>
+        </h2>
+        <h3>{{install.artist}}</h3>
+        <br>
+      </div>
   </div>
 </main>

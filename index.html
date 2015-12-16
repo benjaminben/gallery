@@ -16,15 +16,19 @@
   <base href="/">
 </head>
 <body ng-controller="GalleryController as gallery" rem-resize>
-  <header ng-show="gallery.displayHeader">
+  <div id="header" ng-show="gallery.displayHeader">
     <span id="logo"><a ui-sref="home">rem</a></span>
     <span id="sup">{{gallery.message}}</span>
     <span id="menu">menu</span>
-  </header>
+  </div>
+
   <ui-view></ui-view>
-  <footer ng-show="gallery.displayFooter">
-    <p>texty</p>
-  </footer>
+
+  <div id="footer" ng-show="gallery.displayFooter">
+    <div class="installMini" ng-repeat="install in gallery.installs">
+      <img class="installMiniPic" src="{{install.previewPic}}">
+    </div>
+  </div>
 </body>
   <script src="js/gallery.js"></script>
   <script src="js/remResize.directive.js"></script>
