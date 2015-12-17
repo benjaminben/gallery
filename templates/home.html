@@ -13,16 +13,45 @@
                      gallery.$log.log(gallery.selectedInstall);
                      gallery.$log.log(gallery.installIsSelected);
                      $event.stopPropagation()">
-        <h2>
-          <a ng-click="$event.stopPropagation()" ui-sref="install({title: '{{install.title}}'})">{{install.title}}</a>
-        </h2>
-        <h3>{{install.artist}}</h3>
-        <br>
+
+          <div class=".titleArtist">
+            <h2>
+              {{install.title}}
+            </h2>
+            <h3>{{install.artist}}</h3>
+          </div>
+
+          <div class="playButton">
+            <a ng-click="$event.stopPropagation(); gallery.displayFooter = false" ui-sref="install({title: '{{install.title}}'})">
+              <img src="https://i.imgur.com/DhDgggi.png">
+            </a>
+          </div>
+
+          <div class="label">
+            <h3>{{install.geo}}</h3>
+            <h5>{{install.date}}</h5>
+            <h5>{{install.tech}}</h5>
+          </div>
+
+          <div class="shareButton">
+            <img src="https://i.imgur.com/JLywUWs.png">
+          </div>
+
       </div>
     </div>
   </div>
   <div id="slideButtonsContainer" ng-if="!gallery.installIsSelected">
-    <div id="slideBack" class="slideButton" ng-click="gallery.installIsSelected = false"> < </div>
-    <div id="slideNext" class="slideButton" ng-click="gallery.installIsSelected = false"> > </div>
+    <div id="slideBack"
+         class="slideButton"
+         ng-click="gallery.installIsSelected = false;
+                  gallery.displayHeader = !gallery.displayHeader">
+        <img src="https://i.imgur.com/u5JaP98.png">
+    </div>
+    <div id="slideNext"
+         class="slideButton"
+         ng-click="gallery.installIsSelected = false;
+                   gallery.displayHeader = !gallery.displayHeader">
+      <img src="https://i.imgur.com/qG16kOz.png">
+    </div>
   </div>
 </div>

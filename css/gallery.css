@@ -1,24 +1,63 @@
 body {
   margin: 0px;
   overflow: hidden;
-  background-color: peachpuff;
+  background-color: #dcddde;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
 }
 
+.fade.ng-hide {
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* The starting CSS styles for the enter animation */
+/*.fade.ng-enter {
+  transition:.5s linear all;
+  opacity:0;
+}*/
+
+/* The finishing CSS styles for the enter animation */
+/*.fade.ng-enter.ng-enter-active {
+  opacity:1;
+}*/
+/* The finishing CSS styles for the enter animation */
+/*.fade.ng-enter.ng-enter-active {
+  opacity:1;
+}*/
+/* now the element will fade out before it is removed from the DOM */
+/*.fade.ng-leave {
+  transition:0.5s linear all;
+  opacity:1;
+}
+.fade.ng-leave.ng-leave-active {
+  opacity:0;
+}*/
+
 #header {
   display: flex;
   justify-content: space-between;
-  min-height: 5vh;
+  background: #dcddde;
+  min-height: 8vh;
+  flex: 1;
+  position: absolute;
+  width: 100%;
+  z-index: 1000000;
+  box-shadow: 0 0 1.2vw #171717;
 }
 
 #installContainer {
   color: white;
   overflow-y: scroll;
-  height: 75vh;
+  height: 80vh;
   position: relative;
+  box-shadow: 0 0 1.2vw #171717;
 }
 
 #installs {
@@ -44,14 +83,20 @@ body {
 #footer {
   display: flex;
   flex-flow: row nowrap;
+  min-height: 13vh;
+  flex: 1;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
 /*  position: relative;
 */}
 
 .installMiniPic {
   width: 100%;
+  height: 100%;
 }
 
-h2, h3 {
+h2, h3, h5 {
   padding: 0;
   margin: 0;
 }
@@ -94,7 +139,70 @@ a {
   width: 40px;
   text-align: center;
   border-radius: 50%;
-  border: 1px solid white;
-  background: black;
+  opacity: .7
+}
+.slideButton:hover {
+  color: black;
+}
+
+#slideDown {
+  position: absolute;
+  z-index: 5000;
+  right: 1vw;
+}
+
+.slideButton img {
+  width: 100%;
+}
+
+@keyframes phasing {
+  from { opacity: .7 }
+  to { opacity: 0 }
+}
+@-webkit-keyframes phasing {
+  from { opacity: .7 }
+  to { opacity: 0 }
+}
+
+.titleArtist {
+  position: absolute;
+}
+
+.label {
+  position: absolute;
+  bottom: 1vw;
+  left: 1vw;
+}
+
+.playButton {
+  height: 40vw;
+  max-height: 200px;
+  width: 40vw;
+  max-width: 200px;
+  margin: auto;
+  margin-top: 50%;
+  transform: translate(0, -100%);
+  z-index: 999999999;
   cursor: pointer;
+}
+
+.playButton img {
+  width: 100%;
+}
+
+.shareButton {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  position: absolute;
+  right: 1vw;
+  bottom: 1vw;
+  text-align: center;
+  line-height: 100%;
+  cursor: pointer;
+}
+
+.shareButton img {
+  width: 100%;
+  margin: 0;
 }
