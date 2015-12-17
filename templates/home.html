@@ -1,13 +1,28 @@
-<main>
-  <div id="installContainer">
-    <div class="install" ng-repeat="install in gallery.installs">
-      <img class="previewPic" src="{{install.previewPic}}">
-      <div class="installDetails">
-        <h2 ng-click="gallery.setSelectedInstall(install.title, install.artist); gallery.setInstallPath(install.pathName); gallery.$log.log(gallery.selectedInstall)">
-          <a ui-sref="install({title: '{{install.title}}'})">{{install.title}}</a>
+<div id="installContainer">
+  <div id="installs">
+    <div class="install"
+         ng-repeat="install in gallery.installs"
+         style="background-image: url({{install.previewPic}})"
+         ng-click="gallery.setSelectedInstall($index);
+                   gallery.setInstallPath(install.pathName);
+                   gallery.$log.log(gallery.selectedInstall.index);
+                   (gallery.installIsSelected = !gallery.installIsSelected)">
+      <div class="installDetails"
+           ng-if="$index === gallery.selectedInstall.index"
+           ng-click="gallery.deselectInstall();
+                     gallery.$log.log(gallery.selectedInstall);
+                     gallery.$log.log(gallery.installIsSelected);
+                     $event.stopPropagation()">
+        <h2>
+          <a ng-click="$event.stopPropagation()" ui-sref="install({title: '{{install.title}}'})">{{install.title}}</a>
         </h2>
         <h3>{{install.artist}}</h3>
         <br>
       </div>
+    </div>
   </div>
-</main>
+  <div id="slideButtonsContainer" ng-if="!gallery.installIsSelected">
+    <div id="slideBack" class="slideButton" ng-click="gallery.installIsSelected = false"> < </div>
+    <div id="slideNext" class="slideButton" ng-click="gallery.installIsSelected = false"> > </div>
+  </div>
+</div>

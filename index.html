@@ -12,23 +12,28 @@
   <script src="js/third-party/threejs/StereoEffect.js"></script>
   <script src="js/third-party/threejs/DeviceOrientationControls.js"></script>
   <script src="js/third-party/threejs/OrbitControls.js"></script>
-
 </head>
+
 <body ng-controller="GalleryController as gallery" rem-resize>
-  <div id="header" ng-show="gallery.displayHeader">
-    <span id="logo"><a ui-sref="home">rem</a></span>
-    <span id="sup">{{gallery.message}}</span>
-    <span id="menu">menu</span>
-  </div>
-
-  <ui-view></ui-view>
-
-  <div id="footer" ng-show="gallery.displayFooter">
-    <div class="installMini" ng-repeat="install in gallery.installs">
-      <img class="installMiniPic" src="{{install.previewPic}}">
+    <div id="header" ng-show="gallery.displayHeader">
+      <span id="logo"><a ui-sref="home">rem</a></span>
+      <span id="sup">{{gallery.message}}</span>
+      <span id="menu">menu</span>
     </div>
-  </div>
+
+    <ui-view></ui-view>
+
+    <div id="footer" ng-show="gallery.displayFooter">
+      <div class="installMini" ng-repeat="install in gallery.installs"
+           ng-click="gallery.setSelectedInstall($index);
+                     gallery.setInstallPath(install.pathName);
+                     (gallery.installIsSelected = true);
+                     gallery.$log.log(gallery.selectedInstall)">
+        <img class="installMiniPic" src="{{install.previewPic}}">
+      </div>
+    </div>
 </body>
+
   <script src="js/gallery.js"></script>
   <script src="js/remResize.directive.js"></script>
   <script src="js/installs/installs.dataservice.js"></script>

@@ -13,6 +13,8 @@ var landscape;
     vm.message = "HI WORLD HOW ARE YOU?";
     vm.$log = $log;
 
+    vm.installIsSelected = false;
+
     // Unique path to each installation
     vm.installs = installsDataService;
 
@@ -23,13 +25,12 @@ var landscape;
     vm.setSelectedInstall = setSelectedInstall;
     vm.selectedInstall.path;
     vm.setInstallPath = setInstallPath;
+    vm.deselectInstall = deselectInstall;
 
-    function setSelectedInstall(installTitle, installArtist) {
-      vm.selectedInstall = {
-        title: installTitle,
-        artist: installArtist,
-        description: "B-I-G P-O-P-P-A<br>no info<br>for the DEA"
-      };
+    function setSelectedInstall(index) {
+      vm.selectedInstall = vm.installs[index];
+      vm.selectedInstall.index = index;
+      vm.installIsSelected = false;
     }
 
     function setInstallPath(url) {
@@ -37,6 +38,11 @@ var landscape;
       console.log(vm.selectedInstall.path);
     }
 
+    function deselectInstall() {
+      console.log("guuurrl");
+      vm.selectedInstall = {};
+      vm.installIsSelected = false;
+    }
 
     // Listening for window dimensions to determine phone portrait v. landscape
     vm.window = {
