@@ -18,7 +18,7 @@ var landscape;
     // Unique path to each installation
     vm.installs = installsDataService;
 
-    vm.displayHeader = true;
+    vm.displayHeader = false;
     vm.displayFooter = true;
 
     vm.selectedInstall = {};
@@ -26,6 +26,13 @@ var landscape;
     vm.selectedInstall.path;
     vm.setInstallPath = setInstallPath;
     vm.deselectInstall = deselectInstall;
+
+    // vm.isActive = false;
+    // vm.activate = activate;
+
+    // function activate() {
+    //   vm.isActive = !vm.isActive;
+    // }
 
     function setSelectedInstall(index) {
       vm.selectedInstall = vm.installs[index];

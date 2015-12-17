@@ -1,7 +1,33 @@
 <ng-include src="gallery.selectedInstall.path"></ng-include>
 
-<div ng-show="install.showDetails()" style="position: absolute;">
-  <h1>{{gallery.selectedInstall.title}}</h1>
-  <h2>{{gallery.selectedInstall.artist}}</h2>
-</div>
+<div class="installDetails"
+     ng-show="install.showDetails()">
 
+    <div class=".titleArtist">
+      <h2>
+        {{gallery.selectedInstall.title}}
+      </h2>
+      <h3>{{gallery.selectedInstall.artist}}</h3>
+    </div>
+
+    <div class="exitButton">
+      <a ng-click="$event.stopPropagation();
+                   gallery.displayFooter = true;
+                   gallery.displayHeader = false"
+         ui-sref="home">
+        <img src="https://i.imgur.com/03p5Lbk.png">
+      </a>
+      landscape to resume
+    </div>
+
+    <div class="label">
+      <h3>{{gallery.selectedInstall.geo}}</h3>
+      <h5>{{gallery.selectedInstall.date}}</h5>
+      <h5>{{gallery.selectedInstall.tech}}</h5>
+    </div>
+
+    <div class="shareButton">
+      <img src="https://i.imgur.com/JLywUWs.png">
+    </div>
+
+</div>

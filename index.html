@@ -13,15 +13,22 @@
   <script src="js/third-party/threejs/StereoEffect.js"></script>
   <script src="js/third-party/threejs/DeviceOrientationControls.js"></script>
   <script src="js/third-party/threejs/OrbitControls.js"></script>
+
+  <script src="https://use.typekit.net/wgd4dth.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
 <body ng-controller="GalleryController as gallery" rem-resize>
-    <div id="slideDown" class="slideButton"><img src="https://i.imgur.com/56x48Bt.png"></div>
+    <div ng-show="(!gallery.displayHeader)"
+         ng-click="gallery.displayHeader = true"
+         id="slideDown" class="slideButton">
+      <img src="https://i.imgur.com/56x48Bt.png">
+    </div>
     <div id="header"
          ng-show="gallery.displayHeader"
          class="fade"
-         ng-mouseenter="gallery.displayHeader = true">
-      <span id="logo"><a ui-sref="home">rem</a></span>
+         ng-click="gallery.displayHeader = false">
+      <span id="logo" ng-click="gallery.displayFooter = true"><a ui-sref="home">rem</a></span>
       <span id="sup">{{gallery.message}}</span>
       <span id="menu">menu</span>
     </div>
@@ -33,8 +40,8 @@
            ng-click="gallery.setSelectedInstall($index);
                      gallery.setInstallPath(install.pathName);
                      (gallery.installIsSelected = true);
-                     gallery.$log.log(gallery.selectedInstall)">
-        <img class="installMiniPic" src="{{install.previewPic}}">
+                     gallery.$log.log(gallery.selectedInstall)"
+           style="background-image: url({{install.previewPic}})">
       </div>
     </div>
 </body>

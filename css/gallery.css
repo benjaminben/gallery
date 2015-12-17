@@ -6,6 +6,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  font-family: "museo",serif;
+  color: white;
 }
 
 .fade.ng-hide {
@@ -18,32 +20,32 @@ body {
 }
 
 /* The starting CSS styles for the enter animation */
-/*.fade.ng-enter {
+.fade.ng-enter {
   transition:.5s linear all;
   opacity:0;
-}*/
+}
 
 /* The finishing CSS styles for the enter animation */
-/*.fade.ng-enter.ng-enter-active {
+.fade.ng-enter.ng-enter-active {
   opacity:1;
-}*/
+}
 /* The finishing CSS styles for the enter animation */
-/*.fade.ng-enter.ng-enter-active {
+.fade.ng-enter.ng-enter-active {
   opacity:1;
-}*/
+}
 /* now the element will fade out before it is removed from the DOM */
-/*.fade.ng-leave {
+.fade.ng-leave {
   transition:0.5s linear all;
   opacity:1;
 }
 .fade.ng-leave.ng-leave-active {
   opacity:0;
-}*/
+}
 
 #header {
   display: flex;
   justify-content: space-between;
-  background: #dcddde;
+  background-color:rgba(220, 221, 222, 0.5);
   min-height: 8vh;
   flex: 1;
   position: absolute;
@@ -71,7 +73,9 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
-  background-position: center
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .previewPic{
@@ -83,17 +87,34 @@ body {
 #footer {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-around;
   min-height: 13vh;
+  max-height: 150px;
   flex: 1;
-  position: absolute;
   bottom: 0;
   z-index: 0;
-/*  position: relative;
-*/}
+}
 
-.installMiniPic {
+.installMini {
+  height: 15vh;
   width: 100%;
-  height: 100%;
+  min-height: 13vh;
+  min-width: 13vh;
+  max-height: 150px;
+  text-align: center;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: auto;
+  -webkit-transition: -webkit-filter .05s linear;
+  transition: filter .05s linear;
+  cursor: pointer;
+}
+
+.installMini:hover {
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
 }
 
 h2, h3, h5 {
@@ -113,7 +134,6 @@ a {
   position: absolute;
   width: 100%;
   height: 100%;
-  /*z-index: 100000;*/
 }
 
 #example {
@@ -190,6 +210,23 @@ a {
   width: 100%;
 }
 
+.exitButton {
+  height: 40vw;
+  max-height: 200px;
+  width: 40vw;
+  max-width: 200px;
+  margin: auto;
+  margin-top: 50%;
+  transform: translate(0, -100%);
+  z-index: 999999999;
+  text-align: center
+}
+
+.exitButton img {
+  width: 75%;
+  cursor: pointer;
+}
+
 .shareButton {
   height: 30px;
   width: 30px;
@@ -205,4 +242,8 @@ a {
 .shareButton img {
   width: 100%;
   margin: 0;
+}
+
+.active {
+  -webkit-filter: blur(1px);
 }
