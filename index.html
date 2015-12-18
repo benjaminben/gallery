@@ -26,17 +26,21 @@
     </div>
     <div id="header"
          ng-show="gallery.displayHeader"
-         class="fade"
+         ng-class="{'slideMenu': gallery.displayHeader}"
          ng-click="gallery.displayHeader = false">
-      <span id="logo" ng-click="gallery.displayFooter = true"><a ui-sref="home">rem</a></span>
-      <span id="sup">{{gallery.message}}</span>
-      <span id="menu">menu</span>
+      <div id="logo" ng-click="gallery.displayFooter = true">
+        <a ui-sref="home"><img src="https://i.imgur.com/Sc6AgW8.png"></a>
+      </div>
+      <div id="sup"><span>{{gallery.message}}<span></div>
+      <div id="menu"><span>menu<span></div>
     </div>
 
     <ui-view></ui-view>
 
     <div id="footer" ng-show="gallery.displayFooter">
-      <div class="installMini" ng-repeat="install in gallery.installs"
+      <div class="installMini"
+           ng-repeat="install in gallery.installs"
+           ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
            ng-click="gallery.setSelectedInstall($index);
                      gallery.setInstallPath(install.pathName);
                      (gallery.installIsSelected = true);

@@ -1,20 +1,21 @@
 <div id="installContainer">
-  <div id="installs">
+  <div id="installs" class="slide {{gallery.slidePosition}}">
     <div class="install"
          ng-repeat="install in gallery.installs"
-         style="background-image: url({{install.previewPic}})"
          ng-click="gallery.setSelectedInstall($index);
                    gallery.setInstallPath(install.pathName);
-                   gallery.$log.log(gallery.selectedInstall.index);
+                   gallery.displayHeader = false;
                    (gallery.installIsSelected = !gallery.installIsSelected)">
+      <div class="installBackground"
+           ng-class="{'activeInstall': $index === gallery.selectedInstall.index}"
+           style="background-image: url({{install.previewPic}})"></div>
       <div class="installDetails"
            ng-if="$index === gallery.selectedInstall.index"
            ng-click="gallery.deselectInstall();
-                     gallery.$log.log(gallery.selectedInstall);
-                     gallery.$log.log(gallery.installIsSelected);
+                     gallery.displayHeader = false;
                      $event.stopPropagation()">
 
-          <div class=".titleArtist">
+          <div class="titleArtist">
             <h2>
               {{install.title}}
             </h2>
@@ -30,13 +31,13 @@
           </div>
 
           <div class="label">
-            <h3>{{install.geo}}</h3>
+            <h5>{{install.geo}}</h5>
             <h5>{{install.date}}</h5>
             <h5>{{install.tech}}</h5>
           </div>
 
           <div class="shareButton">
-            <img src="https://i.imgur.com/JLywUWs.png">
+            <img src="https://i.imgur.com/yT0s902.png">
           </div>
 
       </div>

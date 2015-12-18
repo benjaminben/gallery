@@ -27,17 +27,18 @@ var landscape;
     vm.setInstallPath = setInstallPath;
     vm.deselectInstall = deselectInstall;
 
-    // vm.isActive = false;
-    // vm.activate = activate;
+    vm.slidePosition = "slide0";
 
-    // function activate() {
-    //   vm.isActive = !vm.isActive;
-    // }
+
+
+    vm.activeInstall = 'activeInstall';
+    vm.activeInstallMini = 'activeInstallMini';
 
     function setSelectedInstall(index) {
       vm.selectedInstall = vm.installs[index];
       vm.selectedInstall.index = index;
       vm.installIsSelected = false;
+      vm.slidePosition = "slide" + index;
     }
 
     function setInstallPath(url) {
