@@ -30,8 +30,6 @@ var landscape;
 
     vm.slidePosition = "slide0";
 
-
-
     vm.activeInstall = 'activeInstall';
     vm.activeInstallMini = 'activeInstallMini';
 

@@ -15,8 +15,6 @@
       .state('home', {
         url: '/',
         templateUrl: 'templates/home.html'
-        // controller: 'GalleryController',
-        // controllerAs: 'gallery'
       })
       .state('install', {
         url: '/install/:title',
@@ -25,10 +23,5 @@
         controllerAs: 'install'
       });
   };
-
-
-// any need for ng-resource?
-// if so:   <script src="https://code.angularjs.org/1.4.8/angular-resource.min.js"></script>
-
 
 })();

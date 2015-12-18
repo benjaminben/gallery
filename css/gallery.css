@@ -10,6 +10,25 @@ body {
   color: white;
 }
 
+h2, h3, h5 {
+  padding: 0;
+  margin: 0;
+}
+h2 {
+  font-size: 4vh;
+}
+h3{
+  font-weight: 300;
+  font-size: 3vh;
+}
+h5 {
+  font-size: 2vh
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -18,8 +37,7 @@ body {
   display: flex;
   justify-content: space-between;
   background-color:rgba(220, 221, 222, 0.75);
-  min-height: 8vh;
-  max-height: 10vh;
+  height: 10vh;
   flex: 1;
   position: absolute;
   width: 100%;
@@ -60,6 +78,9 @@ body {
 #logo img {
   height: 10vh;
   width: 10vh;
+}
+#name {
+  font-weight: 700
 }
 
 .activeInstall {
@@ -141,24 +162,6 @@ body {
   filter: blur(1px);
 }
 
-h2, h3, h5 {
-  padding: 0;
-  margin: 0;
-}
-h2 {
-  font-size: 4vh;
-}
-h3{
-  font-weight: 300;
-  font-size: 3vh;
-}
-h5 {
-  font-size: 2vh
-}
-a {
-  color: white;
-}
-
 .installDetails {
   position: absolute;
   width: 100vw;
@@ -190,7 +193,12 @@ a {
   width: 8vw;
   text-align: center;
   border-radius: 50%;
-  opacity: .7
+  opacity: .8
+
+  -webkit-animation: phase 2s infinite; /* Safari 4+ */
+  -moz-animation:    phase 2s infinite; /* Fx 5+ */
+  -o-animation:      phase 2s infinite; /* Opera 12+ */
+  animation:         phase 2s infinite; /* IE 10+, Fx 29+ */
 }
 .slideButton:hover {
   color: black;
@@ -201,20 +209,17 @@ a {
   z-index: 5000;
   right: 2vw;
   top: 2vw;
-  width: 6vw;
+  width: 4vw;
+  opacity: 0;
+
+  -webkit-animation: off-phase 2s infinite; /* Safari 4+ */
+  -moz-animation:    off-phase 2s infinite; /* Fx 5+ */
+  -o-animation:      off-phase 2s infinite; /* Opera 12+ */
+  animation:         off-phase 2s infinite; /* IE 10+, Fx 29+ */
 }
 
 .slideButton img {
   width: 100%;
-}
-
-@keyframes phasing {
-  from { opacity: .7 }
-  to { opacity: 0 }
-}
-@-webkit-keyframes phasing {
-  from { opacity: .7 }
-  to { opacity: 0 }
 }
 
 .titleArtist {
@@ -280,6 +285,93 @@ a {
 .active {
   -webkit-filter: blur(1px);
 }
+
+
+@-webkit-keyframes phase {
+  0%   { opacity: .8; }
+  50% { opacity: 0; }
+  100% { opacity: .8 }
+}
+@-moz-keyframes phase {
+  0%   { opacity: .8; }
+  50% { opacity: 0; }
+  100% { opacity: .8 }
+}
+@-o-keyframes phase {
+  0%   { opacity: .8; }
+  50% { opacity: 0; }
+  100% { opacity: .8 }
+}
+@keyframes phase {
+  0%   { opacity: .8; }
+  50% { opacity: 0; }
+  100% { opacity: .8 }
+}
+
+@-webkit-keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@-moz-keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@-o-keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+
+
+@-webkit-keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@-moz-keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@-o-keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@keyframes off-phase {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+
+/*@-webkit-keyframes fadeIn {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@-moz-keyframes fadeIn {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@-o-keyframes fadeIn {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  50% { opacity: .8; }
+  100% { opacity: 0 }
+}*/
+
 
 /*.slide {
   -webkit-transition: 0.6s;

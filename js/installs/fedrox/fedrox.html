@@ -50,14 +50,14 @@
       window.addEventListener('deviceorientation', setOrientationControls, true);
 
 
-      var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
+      var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.9);
       scene.add(light);
 
-      hemisphereLight = new THREE.HemisphereLight(0x272727, 0x000000, 0.2);
+      hemisphereLight = new THREE.HemisphereLight(0x272727, 0x000000, 0.9);
       scene.add( hemisphereLight );
 
       var texture = THREE.ImageUtils.loadTexture(
-        'js/installs/test/textures/patterns/checker.png'
+        'js/installs/fedrox/textures/fedrox2.png'
       );
       texture.wrapS = THREE.RepeatWrapping;
       texture.wrapT = THREE.RepeatWrapping;
@@ -71,6 +71,20 @@
         shading: THREE.FlatShading,
         map: texture
       });
+
+
+      spheregeometry = new THREE.SphereGeometry(250, 100, 100);
+      spherematerial = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        specular: 0xffffff,
+        shininess: 20,
+        shading: THREE.FlatShading,
+        side: THREE.DoubleSide
+      });
+      sphere = new THREE.Mesh(spheregeometry, spherematerial);
+      sphere.position.y = 10;
+      sphere.position.z = 10;
+      scene.add(sphere);
 
       var geometry = new THREE.PlaneGeometry(1000, 1000);
 

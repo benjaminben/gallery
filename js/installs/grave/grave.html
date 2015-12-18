@@ -52,30 +52,25 @@
     }
     window.addEventListener('deviceorientation', setOrientationControls, true);
 
-
-    // var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
-    ambientLight = new THREE.AmbientLight( 0x000000 );
-    scene.add( ambientLight );
-
-    hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 0.2);
-    scene.add( hemisphereLight );
-
-    directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
-    directionalLight.position.set( 0, 1, 0 );
-    directionalLight.castShadow = true;
-    scene.add( directionalLight );
-
     spotLight1 = new THREE.SpotLight( 0xffffff, 0.1 );
-    spotLight1.position.set( 100, 1000, 100 );
+    spotLight1.position.set( 1000, 1000, 100 );
     spotLight1.castShadow = true;
     spotLight1.shadowDarkness = 0.2;
     scene.add( spotLight1 );
 
-    spotLight2 = new THREE.SpotLight( 0xffffff, 0.1 );
-    spotLight2.position.set( 100, 1000, 100 );
+    spotLight2 = new THREE.SpotLight( 0xffffff, 0.2 );
+    spotLight2.position.set( 1000, 1000, 100 );
     spotLight2.castShadow = true;
     spotLight2.shadowDarkness = 0.2;
     scene.add( spotLight2 );
+
+    var light = new THREE.PointLight(0x999999, 2, 100);
+    light.position.set(50, 50, 50);
+    scene.add(light);
+
+    var lightScene = new THREE.PointLight(0x999999, 2, 100);
+    lightScene.position.set(0, 5, 0);
+    scene.add(lightScene);
 
     var floorTexture = THREE.ImageUtils.loadTexture(
       'js/installs/grave/textures/patterns/grass.png'
@@ -84,7 +79,6 @@
     floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat = new THREE.Vector2(50, 50);
     floorTexture.anisotropy = renderer.getMaxAnisotropy();
-
     var floorMaterial = new THREE.MeshPhongMaterial({
       color: 0xffffff,
       specular: 0xffffff,
@@ -92,26 +86,69 @@
       shading: THREE.FlatShading,
       map: floorTexture
     });
-
     var geometry = new THREE.PlaneGeometry(500, 500);
-
     var floor = new THREE.Mesh(geometry, floorMaterial);
     floor.rotation.x = -Math.PI / 2;
     scene.add(floor);
 
+
+    var scottTexture = THREE.ImageUtils.loadTexture(
+      'js/installs/grave/textures/weiland.jpg'
+    );
+    scottTexture.wrapS = THREE.RepeatWrapping;
+    scottTexture.wrapT = THREE.RepeatWrapping;
+    scottTexture.anisotropy = renderer.getMaxAnisotropy();
+    var scottMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      shading: THREE.SmoothShading,
+      map: scottTexture
+    });
+    var geometry = new THREE.PlaneGeometry(5, 5);
+    var scott = new THREE.Mesh(geometry, scottMaterial);
+    // scott.rotation.y = .5;
+    scott.position.x = 18;
+    scott.position.z = 0;
+    scott.position.y = 6.5;
+    scott.rotation.y = 10.4;
+    scene.add(scott);
+
+
+
+    var skyTexture = THREE.ImageUtils.loadTexture(
+      'js/installs/grave/textures/stars.jpg'
+    );
+    skyTexture.wrapS = THREE.RepeatWrapping;
+    skyTexture.wrapT = THREE.RepeatWrapping;
+    skyTexture.anisotropy = renderer.getMaxAnisotropy();
+
     spheregeometry = new THREE.SphereGeometry(250, 100, 100);
-    spherematerial = new THREE.MeshNormalMaterial({shading: THREE.FlatShading, side: THREE.DoubleSide});
+    spherematerial = new THREE.MeshBasicMaterial({shading: THREE.FlatShading, color: 0xdcdcdc, map: skyTexture, side: THREE.DoubleSide});
     sphere = new THREE.Mesh(spheregeometry, spherematerial);
     sphere.position.y = 10;
     sphere.position.z = 10;
     scene.add(sphere);
 ////////////////////////////////////////////////////////////////////////
+    poemMap = THREE.ImageUtils.loadTexture('js/installs/grave/textures/sponge1.jpg');
     cubeGeometry = new THREE.CubeGeometry(50, 50, 50);
-    cubeMaterial = new THREE.MeshNormalMaterial({shading: THREE.FlatShading});
+    cubeMaterial = new THREE.MeshPhongMaterial({shading: THREE.FlatShading, color: 0xdcdcdc, ambient: 0xffffff, emissive: 0x000000, specular: 0x000000, shininess: 65.81, map: poemMap});
     cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    poemMap.wrapS = poemMap.wrapT = THREE.RepeatWrapping;
+    poemMap.repeat.set( 1, 1 );
+    cube.castShadow = true;
     cube.position.y = 70;
     cube.position.z = 100;
     scene.add(cube);
+
+    poemMap = THREE.ImageUtils.loadTexture('js/installs/grave/textures/sponge2.jpg');
+    cube2Geometry = new THREE.CubeGeometry(50, 50, 50);
+    cube2Material = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: poemMap});
+    cube2 = new THREE.Mesh(cube2Geometry, cube2Material);
+    poemMap.wrapS = poemMap.wrapT = THREE.RepeatWrapping;
+    poemMap.repeat.set( 1, 1 );
+    cube2.position.y = 25;
+    cube2.position.x = 100;
+    cube2.position.z = -100;
+    scene.add(cube2)
 ////////////////////////////////////////////////////////////////////////
     stoneMap = THREE.ImageUtils.loadTexture('js/installs/grave/textures/patterns/tombstone-texture.png');
     stoneGeometry = new THREE.CubeGeometry(0.75, 18.75, 7.5);
@@ -191,6 +228,8 @@
       cube.rotation.x = Date.now() * 0.0005;
       cube.rotation.y = Date.now() * 0.0002;
       cube.rotation.z = Date.now() * 0.001;
+
+      cube2.rotation.y = Date.now() * 0.0005;
     }
 
     requestAnimationFrame(animate);

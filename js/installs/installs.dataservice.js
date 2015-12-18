@@ -12,25 +12,25 @@ angular.module("gallery")
         title: 'The Grave',
         artist: 'mason',
         pathName: 'grave',
-        previewPic: 'https://i.imgur.com/PtotLL6.jpg',
+        previewPic: 'https://i.imgur.com/wrbWicL.jpg',
         date: "fall 15",
         geo: "los angeles",
         tech: "Three.JS"
       },
       {
-        title: 'test',
-        artist: 'someone',
+        title: 'SRiS',
+        artist: 'da undagrnd',
         pathName: 'test',
-        previewPic: 'https://i.imgur.com/wrbWicL.jpg',
-        date: "spring 16",
-        geo: "spacelol",
+        previewPic: 'https://i.imgur.com/eBneb9I.png',
+        date: "winter 20",
+        geo: "roxville, MW",
         tech: "Three.JS"
       },
       {
         title: 'honey',
         artist: 'mason',
         pathName: 'honey',
-        previewPic: 'https://i.imgur.com/Fdyq3fa.jpg',
+        previewPic: 'https://i.imgur.com/hQsoyem.jpg',
         date: "spring 16",
         geo: "HT&E",
         tech: "Three.JS"
