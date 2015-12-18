@@ -44,7 +44,8 @@
            ng-click="gallery.setSelectedInstall($index);
                      gallery.setInstallPath(install.pathName);
                      (gallery.installIsSelected = true);
-                     gallery.$log.log(gallery.selectedInstall)"
+                     gallery.$log.log(gallery.selectedInstall);
+                     gallery.scrollToInstall()"
            style="background-image: url({{install.previewPic}})">
       </div>
     </div>

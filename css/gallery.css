@@ -281,7 +281,7 @@ a {
   -webkit-filter: blur(1px);
 }
 
-.slide {
+/*.slide {
   -webkit-transition: 0.6s;
   transition: 0.6s;
 }
@@ -295,4 +295,4 @@ a {
 .slide6 {left: -600vw;}
 .slide7 {left: -700vw;}
 .slide8 {left: -800vw;}
-.slide9 {left: -900vw;}
+.slide9 {left: -900vw;}*/

@@ -6,9 +6,9 @@ var landscape;
   angular.module('gallery')
     .controller('GalleryController', GalleryController);
 
-  GalleryController.$inject = ["installsDataService", "$scope", "$window", "$log"];
+  GalleryController.$inject = ["installsDataService", "$scope", "$window", "$log", "$location", "$anchorScroll"];
 
-  function GalleryController(installsDataService, $scope, $window, $log) {
+  function GalleryController(installsDataService, $scope, $window, $log, $location, $anchorScroll) {
     var vm = this;
     vm.message = "HI WORLD HOW ARE YOU?";
     vm.$log = $log;
@@ -26,6 +26,7 @@ var landscape;
     vm.selectedInstall.path;
     vm.setInstallPath = setInstallPath;
     vm.deselectInstall = deselectInstall;
+    vm.scrollToInstall = scrollToInstall;
 
     vm.slidePosition = "slide0";
 
@@ -50,6 +51,11 @@ var landscape;
       console.log("guuurrl");
       vm.selectedInstall = {};
       vm.installIsSelected = false;
+    }
+
+    function scrollToInstall() {
+      $location.hash(vm.selectedInstall);
+      $anchorScroll;
     }
 
     // Listening for window dimensions to determine phone portrait v. landscape

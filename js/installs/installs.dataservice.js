@@ -27,12 +27,12 @@ angular.module("gallery")
         tech: "Three.JS"
       },
       {
-        title: 'blue test',
-        artist: 'someone else',
-        pathName: 'bluetest',
+        title: 'honey',
+        artist: 'mason',
+        pathName: 'honey',
         previewPic: 'https://i.imgur.com/Fdyq3fa.jpg',
         date: "spring 16",
-        geo: "spacelol",
+        geo: "HT&E",
         tech: "Three.JS"
       },
       {

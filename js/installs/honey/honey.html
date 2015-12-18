@@ -1,0 +1,299 @@
+<div id="example"></div>
+
+<script>
+  var camera, scene, renderer;
+  var effect, controls;
+  var element, container;
+
+  var clock = new THREE.Clock();
+
+  var honey = new Audio('js/installs/honey/sound/honey.mp3');
+
+  init();
+  animate();
+
+  function init() {
+    renderer = new THREE.WebGLRenderer();
+    element = renderer.domElement;
+    container = document.getElementById('example');
+    container.appendChild(element);
+
+    effect = new THREE.StereoEffect(renderer);
+
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera(90, 1, 0.001, 700);
+    camera.position.set(0, 10, 0);
+    scene.add(camera);
+
+    controls = new THREE.OrbitControls(camera, element);
+    controls.rotateUp(Math.PI / 4);
+    controls.target.set(
+      camera.position.x + 0.1,
+      camera.position.y,
+      camera.position.z
+    );
+    controls.noZoom = true;
+    controls.noPan = true;
+
+    function setOrientationControls(e) {
+      if (!e.alpha) {
+        return;
+      }
+
+      controls = new THREE.DeviceOrientationControls(camera, true);
+      controls.connect();
+      controls.update();
+
+      element.addEventListener('click', fullscreen, false);
+
+      window.removeEventListener('deviceorientation', setOrientationControls, true);
+    }
+    window.addEventListener('deviceorientation', setOrientationControls, true);
+
+
+    var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
+    scene.add(light);
+
+    var floorTexture = THREE.ImageUtils.loadTexture(
+      'js/installs/honey/textures/patterns/tile.png'
+    );
+    floorTexture.wrapS = THREE.RepeatWrapping;
+    floorTexture.wrapT = THREE.RepeatWrapping;
+    floorTexture.repeat = new THREE.Vector2(50, 50);
+    floorTexture.anisotropy = renderer.getMaxAnisotropy();
+
+    var material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      specular: 0xffffff,
+      shininess: 20,
+      shading: THREE.FlatShading,
+      map: floorTexture
+    });
+
+    var geometry = new THREE.PlaneGeometry(1000, 1000);
+
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.rotation.x = -Math.PI / 2;
+    scene.add(mesh);
+
+    // sky
+    var skyTexture = THREE.ImageUtils.loadTexture(
+      'js/installs/honey/textures/clouds.jpg'
+    );
+    skyTexture.wrapS = THREE.RepeatWrapping;
+    skyTexture.wrapT = THREE.RepeatWrapping;
+    skyTexture.anisotropy = renderer.getMaxAnisotropy();
+
+    spheregeometry = new THREE.SphereGeometry(250, 100, 100);
+    spherematerial = new THREE.MeshBasicMaterial({shading: THREE.FlatShading, color: 0xdcdcdc, map: skyTexture, side: THREE.DoubleSide});
+    sphere = new THREE.Mesh(spheregeometry, spherematerial);
+    sphere.position.y = 10;
+    sphere.position.z = 10;
+    scene.add(sphere);
+
+
+    // monolith
+
+    monoMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/lyn1.jpg');
+    console.log(monoMap);
+
+    monoGeometry = new THREE.CubeGeometry(10, 200, 50);
+    monoMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: monoMap});
+    mono = new THREE.Mesh(monoGeometry, monoMaterial);
+    mono.castShadow = true;
+    mono.rotation.y = 0;
+    mono.position.y = 100;
+    mono.position.x = -150;
+    mono.position.z = 0;
+    scene.add(mono);
+
+    // baby&mom
+
+    stone1Map = THREE.ImageUtils.loadTexture('js/installs/honey/textures/baby.jpg');
+    console.log(stone1Map);
+    stone1Map.offset.x = 0;
+    stone1Map.offset.y = 0;
+    stone1Geometry = new THREE.CubeGeometry(10, 20, 20);
+    stone1Material = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: stone1Map});
+    stone1 = new THREE.Mesh(stone1Geometry, stone1Material);
+    stone1.castShadow = true;
+    stone1.rotation.y = -6;
+    stone1.position.y = 10;
+    stone1.position.x = -40;
+    stone1.position.z = 20;
+    scene.add(stone1);
+
+    // baby&rach
+
+    monoMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/rach.png');
+    console.log(monoMap);
+    monoMap.offset.x = -.15;
+    monoMap.offset.y = 0;
+    monoGeometry = new THREE.CubeGeometry(10, 50, 20);
+    monoMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: monoMap});
+    mono = new THREE.Mesh(monoGeometry, monoMaterial);
+    mono.castShadow = true;
+    mono.rotation.y = 6;
+    mono.position.y = 25;
+    mono.position.x = -75;
+    mono.position.z = -25;
+    scene.add(mono);
+
+    // data
+
+    dataMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/jeff1.jpg');
+    console.log(dataMap);
+    dataMap.offset.x = -.15;
+    dataMap.offset.y = 0;
+    dataGeometry = new THREE.CubeGeometry(10, 200, 50);
+    dataMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: dataMap});
+    data = new THREE.Mesh(dataGeometry, dataMaterial);
+    data.castShadow = true;
+    data.rotation.y = 0;
+    data.position.y = 100;
+    data.position.x = 150;
+    data.position.z = 0;
+    scene.add(data);
+
+    // rick
+
+    rickMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/rick.jpg');
+    console.log(rickMap);
+    rickMap.offset.x = 0;
+    rickMap.offset.y = 0;
+    rickGeometry = new THREE.CubeGeometry(10, 20, 20);
+    rickMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: rickMap});
+    rick = new THREE.Mesh(rickGeometry, rickMaterial);
+    rick.castShadow = true;
+    rick.rotation.y = -6;
+    rick.position.y = 10;
+    rick.position.x = 40;
+    rick.position.z = -20;
+    scene.add(rick);
+
+    // loretta
+
+    godmomMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/god.jpg');
+    console.log(godmomMap);
+    godmomMap.offset.x = -.15;
+    godmomMap.offset.y = 0;
+    godmomGeometry = new THREE.CubeGeometry(10, 50, 20);
+    godmomMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: godmomMap});
+    godmom = new THREE.Mesh(godmomGeometry, godmomMaterial);
+    godmom.castShadow = true;
+    godmom.rotation.y = 6;
+    godmom.position.y = 25;
+    godmom.position.x = 75;
+    godmom.position.z = 25;
+    scene.add(godmom);
+
+    // cleo
+
+    cleoGlitchNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo-dream-norm.jpg');
+    console.log(cleoGlitchNormMap);
+    cleoGlitchNormMap.offset.x = 0;
+    cleoGlitchNormMap.offset.y = 0;
+    cleoGlitchNormGeometry = new THREE.CubeGeometry(80, 80, 80);
+    cleoGlitchNormMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: cleoGlitchNormMap});
+    cleoGlitchNorm = new THREE.Mesh(cleoGlitchNormGeometry, cleoGlitchNormMaterial);
+    cleoGlitchNorm.castShadow = true;
+    cleoGlitchNorm.rotation.y = 0;
+    cleoGlitchNorm.position.y = 100;
+    cleoGlitchNorm.position.x = 0;
+    cleoGlitchNorm.position.z = 150;
+    scene.add(cleoGlitchNorm);
+
+    cleoDreamNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo.jpg');
+    console.log(cleoDreamNormMap);
+    cleoDreamNormMap.offset.x = 0;
+    cleoDreamNormMap.offset.y = 0;
+    cleoDreamNormGeometry = new THREE.CubeGeometry(80, 60, 80);
+    cleoDreamNormMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: cleoDreamNormMap});
+    cleoDreamNorm = new THREE.Mesh(cleoDreamNormGeometry, cleoDreamNormMaterial);
+    cleoDreamNorm.castShadow = true;
+    cleoDreamNorm.rotation.y = 0;
+    cleoDreamNorm.position.y = 30;
+    cleoDreamNorm.position.x = 0;
+    cleoDreamNorm.position.z = 150;
+    scene.add(cleoDreamNorm);
+
+    // glitch cleo
+
+    cleoGlitchNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo-dream.jpg');
+    console.log(cleoGlitchNormMap);
+    cleoGlitchNormMap.offset.x = 0;
+    cleoGlitchNormMap.offset.y = 0;
+    cleoGlitchNormGeometry = new THREE.CubeGeometry(80, 80, 80);
+    cleoGlitchNormMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: cleoGlitchNormMap});
+    cleoGlitchNorm = new THREE.Mesh(cleoGlitchNormGeometry, cleoGlitchNormMaterial);
+    cleoGlitchNorm.castShadow = true;
+    cleoGlitchNorm.rotation.y = 0;
+    cleoGlitchNorm.position.y = 100;
+    cleoGlitchNorm.position.x = 0;
+    cleoGlitchNorm.position.z = -150;
+    scene.add(cleoGlitchNorm);
+
+    cleoDreamNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo-glitch.jpg');
+    console.log(cleoDreamNormMap);
+    cleoDreamNormMap.offset.x = 0;
+    cleoDreamNormMap.offset.y = 0;
+    cleoDreamNormGeometry = new THREE.CubeGeometry(80, 60, 80);
+    cleoDreamNormMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: cleoDreamNormMap});
+    cleoDreamNorm = new THREE.Mesh(cleoDreamNormGeometry, cleoDreamNormMaterial);
+    cleoDreamNorm.castShadow = true;
+    cleoDreamNorm.rotation.y = 0;
+    cleoDreamNorm.position.y = 30;
+    cleoDreamNorm.position.x = 0;
+    cleoDreamNorm.position.z = -150;
+    scene.add(cleoDreamNorm);
+
+    honey.volume = .5;
+    honey.play();
+
+    window.addEventListener('resize', resize, false);
+    setTimeout(resize, 1);
+  }
+
+  function resize() {
+    var width = container.offsetWidth;
+    var height = container.offsetHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+    effect.setSize(width, height);
+  }
+
+  function update(dt) {
+    resize();
+
+    camera.updateProjectionMatrix();
+
+    controls.update(dt);
+  }
+
+  function render(dt) {
+    effect.render(scene, camera);
+  }
+
+  function animate(t) {
+    requestAnimationFrame(animate);
+
+    update(clock.getDelta());
+    render(clock.getDelta());
+  }
+
+  function fullscreen() {
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen();
+    } else if (container.mozRequestFullScreen) {
+      container.mozRequestFullScreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    }
+  }
+</script>
