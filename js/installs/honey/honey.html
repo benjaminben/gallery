@@ -7,10 +7,35 @@
 
   var clock = new THREE.Clock();
 
-  var honey = new Audio('js/installs/honey/sound/honey.mp3');
-
   init();
   animate();
+
+  function initAudio() {
+    var honey = new Audio('js/installs/honey/sound/honey.mp3');
+    honey.volume = .5;
+
+    var self = this;
+    self.audio = honey;
+
+    var startAudio = function() {
+      self.audio.play();
+      document.removeEventListener("touchstart", self.startAudio, false);
+    }
+
+    self.startAudio = startAudio;
+
+    var pauseAudio = function() {
+      self.audio.pause();
+      self.audio.removeEventListener("play", self.pauseAudio, false);
+    }
+
+    self.pauseAudio = pauseAudio;
+
+    document.addEventListener("touchstart", self.startAudio, false);
+    self.audio.addEventListener("play", self.pauseAudio, false);
+
+  }
+
 
   function init() {
     renderer = new THREE.WebGLRenderer();
@@ -248,8 +273,7 @@
     cleoDreamNorm.position.z = -150;
     scene.add(cleoDreamNorm);
 
-    honey.volume = .5;
-    honey.play();
+    initAudio()
 
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
