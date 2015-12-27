@@ -21,6 +21,10 @@
         templateUrl: 'templates/install.html',
         controller: 'InstallController',
         controllerAs: 'install'
+      })
+      .state('lobby', {
+        url: '/lobby',
+        templateUrl: 'templates/lobby.html'
       });
   };
 

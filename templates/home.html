@@ -56,3 +56,16 @@
     </div>
   </div>
 </div>
+
+<div id="footer" ng-show="gallery.displayFooter">
+  <div class="installMini"
+       ng-repeat="install in gallery.installs"
+       ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
+       ng-click="gallery.setSelectedInstall($index);
+                 gallery.setInstallPath(install.pathName);
+                 (gallery.installIsSelected = true);
+                 gallery.$log.log(gallery.selectedInstall);
+                 gallery.scrollToInstall()"
+       style="background-image: url({{install.previewPic}})">
+  </div>
+</div>
