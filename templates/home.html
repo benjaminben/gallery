@@ -4,7 +4,6 @@
          ng-repeat="install in gallery.installs"
          ng-click="gallery.setSelectedInstall($index);
                    gallery.setInstallPath(install.pathName);
-                   gallery.displayHeader = false;
                    (gallery.installIsSelected = !gallery.installIsSelected)">
       <div class="installBackground"
            ng-class="{'activeInstall': $index === gallery.selectedInstall.index}"
@@ -54,5 +53,18 @@
          ng-click="gallery.installIsSelected = false;">
       <img src="https://i.imgur.com/qG16kOz.png">
     </div>
+  </div>
+</div>
+
+<div id="footer" ng-show="gallery.displayFooter">
+  <div class="installMini"
+       ng-repeat="install in gallery.installs"
+       ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
+       ng-click="gallery.setSelectedInstall($index);
+                 gallery.setInstallPath(install.pathName);
+                 (gallery.installIsSelected = true);
+                 gallery.$log.log(gallery.selectedInstall);
+                 gallery.scrollToInstall()"
+       style="background-image: url({{install.previewPic}})">
   </div>
 </div>

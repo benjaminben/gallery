@@ -11,23 +11,28 @@
   animate();
 
   function initAudio() {
+    console.log('kay');
     var honey = new Audio('js/installs/honey/sound/honey.mp3');
     honey.volume = .5;
 
     var self = this;
     self.audio = honey;
+    console.log(self.audio);
 
     var startAudio = function() {
       self.audio.play();
+      console.log("playing");
       document.removeEventListener("touchstart", self.startAudio, false);
-    }
+    };
 
     self.startAudio = startAudio;
+
+    self.startAudio();
 
     var pauseAudio = function() {
       self.audio.pause();
       self.audio.removeEventListener("play", self.pauseAudio, false);
-    }
+    };
 
     self.pauseAudio = pauseAudio;
 
@@ -121,7 +126,6 @@
     // monolith
 
     monoMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/lyn1.jpg');
-    console.log(monoMap);
 
     monoGeometry = new THREE.CubeGeometry(10, 200, 50);
     monoMaterial = new THREE.MeshBasicMaterial({shading: THREE.SmoothShading, color: 0xdcdcdc, map: monoMap});
@@ -136,7 +140,6 @@
     // baby&mom
 
     stone1Map = THREE.ImageUtils.loadTexture('js/installs/honey/textures/baby.jpg');
-    console.log(stone1Map);
     stone1Map.offset.x = 0;
     stone1Map.offset.y = 0;
     stone1Geometry = new THREE.CubeGeometry(10, 20, 20);
@@ -152,7 +155,6 @@
     // baby&rach
 
     monoMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/rach.png');
-    console.log(monoMap);
     monoMap.offset.x = -.15;
     monoMap.offset.y = 0;
     monoGeometry = new THREE.CubeGeometry(10, 50, 20);
@@ -168,7 +170,6 @@
     // data
 
     dataMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/jeff1.jpg');
-    console.log(dataMap);
     dataMap.offset.x = -.15;
     dataMap.offset.y = 0;
     dataGeometry = new THREE.CubeGeometry(10, 200, 50);
@@ -184,7 +185,6 @@
     // rick
 
     rickMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/rick.jpg');
-    console.log(rickMap);
     rickMap.offset.x = 0;
     rickMap.offset.y = 0;
     rickGeometry = new THREE.CubeGeometry(10, 20, 20);
@@ -200,7 +200,6 @@
     // loretta
 
     godmomMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/god.jpg');
-    console.log(godmomMap);
     godmomMap.offset.x = -.15;
     godmomMap.offset.y = 0;
     godmomGeometry = new THREE.CubeGeometry(10, 50, 20);
@@ -216,7 +215,6 @@
     // cleo
 
     cleoGlitchNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo-dream-norm.jpg');
-    console.log(cleoGlitchNormMap);
     cleoGlitchNormMap.offset.x = 0;
     cleoGlitchNormMap.offset.y = 0;
     cleoGlitchNormGeometry = new THREE.CubeGeometry(80, 80, 80);
@@ -230,7 +228,6 @@
     scene.add(cleoGlitchNorm);
 
     cleoDreamNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo.jpg');
-    console.log(cleoDreamNormMap);
     cleoDreamNormMap.offset.x = 0;
     cleoDreamNormMap.offset.y = 0;
     cleoDreamNormGeometry = new THREE.CubeGeometry(80, 60, 80);
@@ -246,7 +243,6 @@
     // glitch cleo
 
     cleoGlitchNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo-dream.jpg');
-    console.log(cleoGlitchNormMap);
     cleoGlitchNormMap.offset.x = 0;
     cleoGlitchNormMap.offset.y = 0;
     cleoGlitchNormGeometry = new THREE.CubeGeometry(80, 80, 80);
@@ -260,7 +256,6 @@
     scene.add(cleoGlitchNorm);
 
     cleoDreamNormMap = THREE.ImageUtils.loadTexture('js/installs/honey/textures/cleo-glitch.jpg');
-    console.log(cleoDreamNormMap);
     cleoDreamNormMap.offset.x = 0;
     cleoDreamNormMap.offset.y = 0;
     cleoDreamNormGeometry = new THREE.CubeGeometry(80, 60, 80);
@@ -273,7 +268,7 @@
     cleoDreamNorm.position.z = -150;
     scene.add(cleoDreamNorm);
 
-    initAudio()
+    initAudio();
 
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
