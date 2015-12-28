@@ -1,46 +1,23 @@
 <div id="example"></div>
+<audio preload="auto"
+       loop
+       autoplay
+       src="js/installs/honey/sound/honey.mp3">
+</audio>
 
 <script>
   var camera, scene, renderer;
   var effect, controls;
   var element, container;
 
+  var raycaster = new THREE.Raycaster();
+
   var clock = new THREE.Clock();
+
+  var memories;
 
   init();
   animate();
-
-  function initAudio() {
-    console.log('kay');
-    var honey = new Audio('js/installs/honey/sound/honey.mp3');
-    honey.volume = .5;
-
-    var self = this;
-    self.audio = honey;
-    console.log(self.audio);
-
-    var startAudio = function() {
-      self.audio.play();
-      console.log("playing");
-      document.removeEventListener("touchstart", self.startAudio, false);
-    };
-
-    self.startAudio = startAudio;
-
-    self.startAudio();
-
-    var pauseAudio = function() {
-      self.audio.pause();
-      self.audio.removeEventListener("play", self.pauseAudio, false);
-    };
-
-    self.pauseAudio = pauseAudio;
-
-    document.addEventListener("touchstart", self.startAudio, false);
-    self.audio.addEventListener("play", self.pauseAudio, false);
-
-  }
-
 
   function init() {
     renderer = new THREE.WebGLRenderer();
@@ -268,10 +245,15 @@
     cleoDreamNorm.position.z = -150;
     scene.add(cleoDreamNorm);
 
-    initAudio();
+    memories = scene.children.slice(4)
+
+    for (var i = 0; i < memories.length - 1; i++) {
+        memories[i].material.transparent = true;
+    }
 
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
+
   }
 
   function resize() {
@@ -295,6 +277,35 @@
 
   function render(dt) {
     effect.render(scene, camera);
+
+    var vector = new THREE.Vector3(0, 0, -1);
+    vector.applyQuaternion( camera.quaternion ).add(camera.position);
+
+    raycaster.set( camera.position, vector.sub( camera.position ).normalize(), .0001, 700 );
+    var intersects = raycaster.intersectObjects( memories );
+
+    if (intersects[0]) {
+        memories.forEach(function(memory) {
+            if (intersects[0].object === memory) {
+                fadeOut(memory)
+            } else {
+                fadeIn(memory)
+            }
+        })
+    } else {
+        memories.forEach(function(memory) {
+            fadeIn(memory)
+        })
+    }
+
+  }
+
+  function fadeOut(thing) {
+    if (thing.material.opacity > 0) { thing.material.opacity -= .01 }
+  }
+
+  function fadeIn(thing) {
+    if (thing.material.opacity < 1) { thing.material.opacity += .01 }
   }
 
   function animate(t) {
