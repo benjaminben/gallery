@@ -6,9 +6,9 @@ var landscape;
   angular.module('gallery')
     .controller('GalleryController', GalleryController);
 
-  GalleryController.$inject = ["installsDataService", "$scope", "$window", "$log", "$location", "$anchorScroll"];
+  GalleryController.$inject = ["installsDataService", "$scope", "$window", "$log", "$location", "$anchorScroll", "$timeout"];
 
-  function GalleryController(installsDataService, $scope, $window, $log, $location, $anchorScroll) {
+  function GalleryController(installsDataService, $scope, $window, $log, $location, $anchorScroll, $timeout) {
     var vm = this;
     vm.message = "HI WORLD HOW ARE YOU?";
     vm.$log = $log;
@@ -27,6 +27,7 @@ var landscape;
     vm.setInstallPath = setInstallPath;
     vm.deselectInstall = deselectInstall;
     vm.scrollToInstall = scrollToInstall;
+    vm.logIt = logIt;
 
     vm.slidePosition = "slide0";
 
@@ -64,6 +65,16 @@ var landscape;
         return this.width > this.height
       }
     };
+
+    function logIt() {
+      console.log("did that just happen??")
+    }
+
+    // $timeout(function () {
+    //     var clickBtn = document.getElementById('clickBtn');
+    //     console.log(clickBtn);
+    //     angular.element(clickBtn).triggerHandler('click');
+    // }, 100);
 
     landscape = vm.window.widthIsGreaterThanHeight();
 

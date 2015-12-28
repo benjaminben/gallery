@@ -4,7 +4,6 @@
          ng-repeat="install in gallery.installs"
          ng-click="gallery.setSelectedInstall($index);
                    gallery.setInstallPath(install.pathName);
-                   gallery.displayHeader = false;
                    (gallery.installIsSelected = !gallery.installIsSelected)">
       <div class="installBackground"
            ng-class="{'activeInstall': $index === gallery.selectedInstall.index}"
