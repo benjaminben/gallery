@@ -1,0 +1,41 @@
+<input type="button"
+       id="lobbyInstall{{$index}}"
+       ng-repeat="install in gallery.installs"
+       ng-click="gallery.setSelectedInstall($index);
+                 gallery.setInstallPath(install.pathName);
+                 (gallery.installIsSelected = !gallery.installIsSelected)">
+</input>
+
+<script>
+
+// 1. Event occurs
+
+window.addEventListener("load", pageFullyLoaded, false);
+
+var lobbyInstalls = [];
+
+function autoClick() {
+  angular.element(this).triggerHandler('click');
+}
+
+function pageFullyLoaded(e) {
+  lobbyInstalls[0] = document.getElementById("lobbyInstall0");
+  lobbyInstalls[1] = document.getElementById("lobbyInstall1");
+  lobbyInstalls[2] = document.getElementById("lobbyInstall2");
+  lobbyInstalls[3] = document.getElementById("lobbyInstall3");
+
+  lobbyInstalls.forEach(function(install) {
+    install.addEventListener("mouseover", autoClick, false);
+  })
+
+}
+
+
+
+
+// 2. Set selected install
+
+
+// 3. Travel to install template on next event
+
+</script>
