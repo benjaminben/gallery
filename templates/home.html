@@ -21,9 +21,11 @@
             <h3>{{install.artist}}</h3>
           </div>
 
-          <div class="playButton">
-            <a ng-click="$event.stopPropagation();
-                          gallery.displayFooter = false"
+          <div class="playButton"
+               onclick="audio.play()"
+               ng-click="$event.stopPropagation()">
+            <a ng-click="gallery.displayFooter = false;
+                         gallery.$log.log(1+1)"
                ui-sref="install({title: '{{install.title}}'})">
               <img src="https://i.imgur.com/tf6oy2w.png">
             </a>
