@@ -1,0 +1,283 @@
+<div id="lobbyInstall{{$index}}"
+     ng-repeat="install in gallery.installs"
+     ng-click="gallery.setSelectedInstall($index);
+               gallery.setInstallPath(install.pathName);
+               (gallery.installIsSelected = !gallery.installIsSelected)">
+  <div class="lobbyInstallDetails"
+       ng-if="$index === gallery.selectedInstall.index"
+       ng-click="gallery.deselectInstall();
+                 gallery.displayHeader = false;
+                 $event.stopPropagation()">
+      <div class="titleArtist">
+        <h2>
+          {{install.title}}
+        </h2>
+        <h3>{{install.artist}}</h3>
+      </div>
+
+      <div class="label">
+        <h5>{{install.geo}}</h5>
+        <h5>{{install.date}}</h5>
+        <h5>{{install.tech}}</h5>
+      </div>
+</div>
+</div>
+
+<div id="example"></div>
+
+<script>
+
+var deselectInstall = angular.element(document.getElementById('gallery')).scope().gallery.deselectInstall;
+// console.log(deselectInstall);
+var lobbyInstalls = [];
+var lobbyPreviews = [];
+
+var autoClick = function() {
+  angular.element(this).triggerHandler('click');
+}
+
+
+var camera, scene, renderer;
+var effect, controls;
+var element, container;
+
+var raycaster = new THREE.Raycaster();
+var INTERSECTED;
+
+var clock = new THREE.Clock();
+
+init();
+animate();
+
+function createPreviews() {
+  console.log(lobbyInstalls.length);
+  var lobbyPreviewGeo = new THREE.BoxGeometry(50, 100, 10);
+  var lobbyPreviewMat = new THREE.MeshBasicMaterial({color: 0x00ff00});
+  for (var i = 0; i < lobbyInstalls.length; i++) {
+    lobbyInstalls[i].lobbyPreview = new THREE.Mesh(lobbyPreviewGeo, lobbyPreviewMat);
+    lobbyInstalls[i].lobbyPreview.position.y = 50;
+    lobbyInstalls[i].lobbyPreview.position.x = 60 * i;
+    lobbyInstalls[i].lobbyPreview.position.z = 100;
+    lobbyPreviews.push(lobbyInstalls[i].lobbyPreview);
+
+    lobbyInstalls[i].autoClick = autoClick;
+
+    scene.add(lobbyPreviews[i]);
+  }
+}
+
+function addPreviewLinks() {
+
+}
+
+function init() {
+  renderer = new THREE.WebGLRenderer();
+  element = renderer.domElement;
+  container = document.getElementById('example');
+  container.appendChild(element);
+
+  effect = new THREE.StereoEffect(renderer);
+
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(90, 1, .0001, 7000);
+  camera.position.set(0, 10, 0);
+
+  // var crossMaterial = new THREE.LineBasicMaterial({ color: 0xAAFFAA });
+
+  // // crosshair size
+  // var x = 0.01, y = 0.01;
+
+  // var crossGeometry = new THREE.Geometry();
+
+  // // crosshair
+  // crossGeometry.vertices.push(new THREE.Vector3(0, y, 0));
+  // crossGeometry.vertices.push(new THREE.Vector3(0, -y, 0));
+  // crossGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
+  // crossGeometry.vertices.push(new THREE.Vector3(x, 0, 0));
+  // crossGeometry.vertices.push(new THREE.Vector3(-x, 0, 0));
+
+  // var crosshair = new THREE.Line( crossGeometry, crossMaterial );
+
+  // // place it in the center
+  // var crosshairPercentX = 50;
+  // var crosshairPercentY = 50;
+  // var crosshairPositionX = (crosshairPercentX / 100) * 2 - 1;
+  // var crosshairPositionY = (crosshairPercentY / 100) * 2 - 1;
+
+  // crosshair.position.x = crosshairPositionX * camera.aspect;
+  // crosshair.position.y = crosshairPositionY;
+
+  // crosshair.position.z = -0.3;
+
+  // camera.add( crosshair );
+
+
+  scene.add(camera);
+
+  controls = new THREE.OrbitControls(camera, element);
+  controls.rotateUp(Math.PI / 4);
+  controls.target.set(
+    camera.position.x + 0.1,
+    camera.position.y,
+    camera.position.z
+  );
+  controls.noZoom = true;
+  controls.noPan = true;
+
+  function setOrientationControls(e) {
+    if (!e.alpha) {
+      return;
+    }
+
+    controls = new THREE.DeviceOrientationControls(camera, true);
+    controls.connect();
+    controls.update();
+
+    element.addEventListener('click', fullscreen, false);
+
+    window.removeEventListener('deviceorientation', setOrientationControls, true);
+  }
+  window.addEventListener('deviceorientation', setOrientationControls, true);
+
+
+  var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
+  scene.add(light);
+
+  var texture = THREE.ImageUtils.loadTexture(
+    'templates/lobby/textures/patterns/checker.png'
+  );
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat = new THREE.Vector2(50, 50);
+  texture.anisotropy = renderer.getMaxAnisotropy();
+
+  var material = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    specular: 0xffffff,
+    shininess: 20,
+    shading: THREE.FlatShading,
+    map: texture
+  });
+
+  var geometry = new THREE.PlaneGeometry(1000, 1000);
+
+  var mesh = new THREE.Mesh(geometry, material);
+  mesh.rotation.x = -Math.PI / 2;
+  scene.add(mesh);
+
+window.addEventListener("load", pageFullyLoaded, false);
+
+  function pageFullyLoaded(e) {
+    lobbyInstalls[0] = document.getElementById("lobbyInstall0");
+    lobbyInstalls[1] = document.getElementById("lobbyInstall1");
+    lobbyInstalls[2] = document.getElementById("lobbyInstall2");
+    lobbyInstalls[3] = document.getElementById("lobbyInstall3");
+
+    // lobbyInstalls.forEach(function(install) {
+    //   install.addEventListener("mouseover", autoClick, false);
+    // })
+    var installsPromise = new Promise(function(resolve, reject) {
+
+      if (lobbyInstalls.length > 0) {
+        resolve(lobbyInstalls);
+      } else {
+        reject(Error("hurrrggh"));
+      }
+
+    });
+
+    installsPromise.then(
+      function(result) {
+        console.log(result);
+      }, function(err) {
+        console.log(err);
+      }
+    ).then(
+      function(result) {
+       createPreviews();
+     }, function(err) {
+      console.log(err)
+     }
+    )
+
+  };
+
+  window.addEventListener('resize', resize, false);
+  setTimeout(resize, 1);
+
+}
+
+function resize() {
+  var width = container.offsetWidth;
+  var height = container.offsetHeight;
+
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(width, height);
+  effect.setSize(width, height);
+}
+
+function update(dt) {
+  resize();
+
+  camera.updateProjectionMatrix();
+
+  controls.update(dt);
+}
+
+function render(dt) {
+  effect.render(scene, camera);
+
+  var vector = new THREE.Vector3(0, 0, -1);
+  vector.applyQuaternion( camera.quaternion ).add(camera.position);
+
+  raycaster.set( camera.position, vector.sub( camera.position ).normalize(), .0001, 700 );
+  var intersects = raycaster.intersectObjects( lobbyPreviews );
+
+  if (intersects[0]) {
+      lobbyInstalls.forEach(function(install) {
+          if (intersects[0].object === install.lobbyPreview) {
+              // autoClick();
+              // console.log(install.autoClick)
+              install.autoClick()
+          } else {
+              // preview.material.color.setHex(0x00ff00)
+          }
+      })
+  } else {
+      deselectInstall();
+  }
+}
+
+function selectPreview(PREVIEW) {
+  PREVIEW.material.color.setHex(0xff0000)
+}
+
+function deselectPreview(PREVIEW) {
+  PREVIEW.material.color.setHex(0x00ff00)
+}
+
+function animate(t) {
+  requestAnimationFrame(animate);
+
+  update(clock.getDelta());
+  render(clock.getDelta());
+}
+
+function fullscreen() {
+  if (container.requestFullscreen) {
+    container.requestFullscreen();
+  } else if (container.msRequestFullscreen) {
+    container.msRequestFullscreen();
+  } else if (container.mozRequestFullScreen) {
+    container.mozRequestFullScreen();
+  } else if (container.webkitRequestFullscreen) {
+    container.webkitRequestFullscreen();
+  }
+}
+
+// 3. Travel to install template on next event
+
+</script>

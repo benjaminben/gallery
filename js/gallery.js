@@ -24,7 +24,7 @@
       })
       .state('lobby', {
         url: '/lobby',
-        templateUrl: 'templates/lobby.html'
+        templateUrl: 'templates/lobby/lobby.html'
       });
   };
 

@@ -18,7 +18,7 @@
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
-<body ng-controller="GalleryController as gallery" rem-resize>
+<body id="gallery" ng-controller="GalleryController as gallery" rem-resize>
   <div ng-show="(!gallery.displayHeader)"
        ng-click="gallery.displayHeader = true"
        id="slideDown" class="slideButton">

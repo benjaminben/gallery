@@ -27,7 +27,6 @@ var landscape;
     vm.setInstallPath = setInstallPath;
     vm.deselectInstall = deselectInstall;
     vm.scrollToInstall = scrollToInstall;
-    vm.logIt = logIt;
 
     vm.audio;
     vm.installAudioPath;
@@ -49,7 +48,7 @@ var landscape;
 
     function setInstallPath(url) {
       vm.selectedInstall.path = 'js/installs/'+ url +'/'+ url +'.html';
-      console.log(vm.selectedInstall.path);
+     console.log(vm.selectedInstall.path);
     }
 
     function deselectInstall() {
@@ -71,10 +70,6 @@ var landscape;
         return this.width > this.height
       }
     };
-
-    function logIt() {
-      console.log("did that just happen??")
-    }
 
     function installAudioSet() {
       if (vm.selectedInstall.audio) {
