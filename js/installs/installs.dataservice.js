@@ -15,7 +15,7 @@ angular.module("gallery")
         previewPic: 'https://i.imgur.com/wrbWicL.jpg',
         date: "fall 15",
         geo: "los angeles",
-        tech: "Three.JS"
+        tech: "Three.JS",
       },
       {
         title: 'SRiS',
@@ -24,7 +24,7 @@ angular.module("gallery")
         previewPic: 'https://i.imgur.com/eBneb9I.png',
         date: "winter 20",
         geo: "roxville, MW",
-        tech: "Three.JS"
+        tech: "Three.JS",
       },
       {
         title: 'honey',
@@ -33,7 +33,8 @@ angular.module("gallery")
         previewPic: 'https://i.imgur.com/hQsoyem.jpg',
         date: "spring 16",
         geo: "HT&E",
-        tech: "Three.JS"
+        tech: "Three.JS",
+        audio: "js/installs/honey/sound/honey.mp3"
       },
       {
         title: 'too many tests',
@@ -42,7 +43,7 @@ angular.module("gallery")
         previewPic: "https://i.imgur.com/kEvvMQv.jpg",
         date: "spring 16",
         geo: "spacelol",
-        tech: "Three.JS"
+        tech: "Three.JS",
       }
     ];
 

@@ -1,12 +1,12 @@
 <div id="example"></div>
-<audio preload="auto"
+<!-- <audio
+       src="js/installs/honey/sound/honey.mp3"
        loop
-       autoplay
-       src="js/installs/honey/sound/honey.mp3">
-</audio>
+       autoplay>
+</audio> -->
 
 <script>
-  var camera, scene, renderer;
+  var camera, scene, renderer, context, audio;
   var effect, controls;
   var element, container;
 
@@ -18,6 +18,14 @@
 
   init();
   animate();
+
+  // function createAudio() {
+  //   muna = new THREE.Sound(context, ready, errorHandler);
+  //   muna.load('sound/honey.mp3');
+  //   muna.setVolume(0.5);
+  //   muna.setLoop(true);
+  //   muna.play();
+  // }
 
   function init() {
     renderer = new THREE.WebGLRenderer();
@@ -254,6 +262,22 @@
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
 
+    // context = audio;
+
+    // return new Promise(function(resolve, reject) {
+    //     createAudio(audio, function() {
+    //         resolve({
+    //             enter: enter,
+    //             leave: leave,
+    //             resize: resize,
+    //             render: render
+    //         });
+    //     }, reject);
+    // });
+
+    // createAudio();
+    // enter();
+
   }
 
   function resize() {
@@ -315,6 +339,16 @@
     render(clock.getDelta());
   }
 
+  // function enter() {
+  //   scene.visible = true;
+  //   muna.play();
+  // }
+
+  // function leave() {
+  //   scene.visible = false;
+  //   muna.stop();
+  // }
+
   function fullscreen() {
     if (container.requestFullscreen) {
       container.requestFullscreen();
@@ -326,4 +360,5 @@
       container.webkitRequestFullscreen();
     }
   }
+
 </script>

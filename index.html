@@ -13,30 +13,31 @@
   <script src="js/third-party/threejs/StereoEffect.js"></script>
   <script src="js/third-party/threejs/DeviceOrientationControls.js"></script>
   <script src="js/third-party/threejs/OrbitControls.js"></script>
+  <script src="js/audio.js"></script>
 
   <script src="https://use.typekit.net/wgd4dth.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
 <body ng-controller="GalleryController as gallery" rem-resize>
-    <div ng-show="(!gallery.displayHeader)"
-         ng-click="gallery.displayHeader = true"
-         id="slideDown" class="slideButton">
-      <img src="https://i.imgur.com/56x48Bt.png">
+  <div ng-show="(!gallery.displayHeader)"
+       ng-click="gallery.displayHeader = true"
+       id="slideDown" class="slideButton">
+    <img src="https://i.imgur.com/56x48Bt.png">
+  </div>
+  <div id="header"
+       ng-show="gallery.displayHeader"
+       ng-class="{'slideMenu': gallery.displayHeader}"
+       ng-click="gallery.displayHeader = false">
+    <div id="logo" ng-click="gallery.displayFooter = true">
+      <a ui-sref="home"><h3 id="name">rem</h3></a>
     </div>
-    <div id="header"
-         ng-show="gallery.displayHeader"
-         ng-class="{'slideMenu': gallery.displayHeader}"
-         ng-click="gallery.displayHeader = false">
-      <div id="logo" ng-click="gallery.displayFooter = true">
-        <a ui-sref="home"><h3 id="name">rem</h3></a>
-      </div>
-      <div id="sup"><span>{{gallery.message}}<span></div>
-      <div id="menu"><span><a ui-sref="lobby">menu</a><span></div>
-    </div>
+    <div id="sup"><span>{{gallery.message}}<span></div>
+    <div id="menu"><span><a ui-sref="lobby">menu</a><span></div>
+  </div>
 
-    <ui-view></ui-view>
-
+  <ui-view></ui-view>
+  <audio id="installAudio" ng-src="{{gallery.installAudioPath}}"></audio>
 </body>
 
   <script src="js/gallery.js"></script>
@@ -45,4 +46,5 @@
   <script src="js/controllers/gallery.controller.js"></script>
   <script src="js/controllers/install.controller.js"></script>
   <script src="js/controllers/home.controller.js"></script>
+
 </html>

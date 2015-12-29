@@ -29,6 +29,11 @@ var landscape;
     vm.scrollToInstall = scrollToInstall;
     vm.logIt = logIt;
 
+    vm.audio;
+    vm.installAudioPath;
+    vm.installAudioSet = installAudioSet;
+    vm.installAudioRun = installAudioRun;
+
     vm.slidePosition = "slide0";
 
     vm.activeInstall = 'activeInstall';
@@ -37,8 +42,9 @@ var landscape;
     function setSelectedInstall(index) {
       vm.selectedInstall = vm.installs[index];
       vm.selectedInstall.index = index;
-      vm.installIsSelected = false;
+      vm.installIsSelected = true;
       vm.slidePosition = "slide" + index;
+      vm.installAudioSet();
     }
 
     function setInstallPath(url) {
@@ -70,11 +76,17 @@ var landscape;
       console.log("did that just happen??")
     }
 
-    // $timeout(function () {
-    //     var clickBtn = document.getElementById('clickBtn');
-    //     console.log(clickBtn);
-    //     angular.element(clickBtn).triggerHandler('click');
-    // }, 100);
+    function installAudioSet() {
+      if (vm.selectedInstall.audio) {
+        vm.installAudioPath = vm.selectedInstall.audio
+      } else {
+        vm.installAudioPath = null;
+      }
+    }
+
+    function installAudioRun() {
+
+    }
 
     landscape = vm.window.widthIsGreaterThanHeight();
 
@@ -86,6 +98,7 @@ var landscape;
         landscape = vm.window.widthIsGreaterThanHeight();
       });
     });
+
   };
 
 })();
