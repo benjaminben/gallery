@@ -32,7 +32,7 @@ var landscape;
     vm.audio;
     vm.installAudioPath;
     vm.installAudioSet = installAudioSet;
-    vm.installAudioRun = installAudioRun;
+    vm.installAudioClear = installAudioClear;
 
     vm.slidePosition = "slide0";
 
@@ -84,8 +84,8 @@ var landscape;
       }
     }
 
-    function installAudioRun() {
-
+    function installAudioClear() {
+      vm.installAudioPath = null;
     }
 
     landscape = vm.window.widthIsGreaterThanHeight();

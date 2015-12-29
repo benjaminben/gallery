@@ -10,9 +10,10 @@
       <h3>{{gallery.selectedInstall.artist}}</h3>
     </div>
 
-    <div class="exitButton">
-      <a ng-click="$event.stopPropagation();
-                   gallery.displayFooter = true;
+    <div class="exitButton"
+         onclick="stopAudio(); clearAudio()"
+         ng-click="$event.stopPropagation()">
+      <a ng-click="gallery.displayFooter = true;
                    gallery.displayHeader = false"
          ui-sref="home">
         <img src="https://i.imgur.com/03p5Lbk.png">
@@ -33,7 +34,5 @@
 </div>
 
 <script>
-// var audio = document.getElementById("installAudio");
-// console.log(audio);
-// audio.play();
+audio.addEventListener("canplaythrough", playAudio, false);
 </script>

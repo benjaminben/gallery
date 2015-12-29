@@ -28,7 +28,9 @@
        ng-show="gallery.displayHeader"
        ng-class="{'slideMenu': gallery.displayHeader}"
        ng-click="gallery.displayHeader = false">
-    <div id="logo" ng-click="gallery.displayFooter = true">
+    <div id="logo"
+         onclick="stopAudio(); clearAudio()"
+         ng-click="gallery.displayFooter = true">
       <a ui-sref="home"><h3 id="name">rem</h3></a>
     </div>
     <div id="sup"><span>{{gallery.message}}<span></div>
@@ -36,8 +38,27 @@
   </div>
 
   <ui-view></ui-view>
-  <audio id="installAudio" ng-src="{{gallery.installAudioPath}}"></audio>
-  <script>var audio = document.getElementById("installAudio")</script>
+
+  <audio id="installAudio" loop ng-src="{{gallery.installAudioPath}}"></audio>
+  <script>
+    var audio = document.getElementById("installAudio");
+    function loadAudio() {
+      audio.load();
+      console.log("blurp");
+    }
+    function playAudio() {
+      audio.play();
+    }
+    function stopAudio() {
+      audio.removeEventListener("canplaythrough", playAudio, false);
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    function clearAudio() {
+      audio.setAttribute("src", "");
+    }
+  </script>
+
 </body>
 
   <script src="js/gallery.js"></script>

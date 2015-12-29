@@ -16,6 +16,7 @@ angular.module("gallery")
         date: "fall 15",
         geo: "los angeles",
         tech: "Three.JS",
+        audio: "js/installs/grave/sound/sourgirl.mp3"
       },
       {
         title: 'SRiS',
