@@ -6,9 +6,9 @@ var landscape;
   angular.module('gallery')
     .controller('GalleryController', GalleryController);
 
-  GalleryController.$inject = ["installsDataService", "$scope", "$window", "$log", "$location", "$anchorScroll", "$timeout"];
+  GalleryController.$inject = ["installsDataService", "$scope", "$window", "$log", "$location", "$anchorScroll", "$timeout", "$q"];
 
-  function GalleryController(installsDataService, $scope, $window, $log, $location, $anchorScroll, $timeout) {
+  function GalleryController(installsDataService, $scope, $window, $log, $location, $anchorScroll, $timeout, $state, $q) {
     var vm = this;
     vm.message = "HI WORLD HOW ARE YOU?";
     vm.$log = $log;
@@ -27,6 +27,31 @@ var landscape;
     vm.setInstallPath = setInstallPath;
     vm.deselectInstall = deselectInstall;
     vm.scrollToInstall = scrollToInstall;
+
+    // vm.lobbyLoaded;
+
+    // vm.loadLobby = function() {
+    //   return new Promise(function(resolve, reject) {
+
+    //     loadedPromise =
+
+    //     if (vm.lobbyLoaded === true) {
+    //       resolve();
+    //     } else {
+    //       reject(Error("bye"));
+    //     }
+    //   })
+    // }
+
+    vm.loadedLobby = function(){
+     $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+           vm.$log.log("dunzo");
+           vm.lobbyLoaded = true;
+      });
+     return new Promise(function(resolve, reject) {
+      if (vm.lobbyLoaded) resolve();
+     })
+    };
 
     vm.audio;
     vm.installAudioPath;
@@ -82,6 +107,15 @@ var landscape;
     function installAudioClear() {
       vm.installAudioPath = null;
     }
+
+    // function enterLobby() {
+    //   // $state.transitionTo("lobby", {reload: true})
+    //   // vm.inLobby = true
+    // }
+
+    // function exitLobby() {
+    //   // vm.inLobby = false;
+    // }
 
     landscape = vm.window.widthIsGreaterThanHeight();
 

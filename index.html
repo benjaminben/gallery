@@ -34,7 +34,13 @@
       <a ui-sref="home"><h3 id="name">rem</h3></a>
     </div>
     <div id="sup"><span>{{gallery.message}}<span></div>
-    <div id="menu"><span><a ui-sref="lobby">menu</a><span></div>
+    <div id="menu">
+      <span>
+        <a ng-click="vm.enterLobby" ui-sref="lobby">
+        menu
+        </a>
+      <span>
+    </div>
   </div>
 
   <ui-view></ui-view>
@@ -44,7 +50,6 @@
     var audio = document.getElementById("installAudio");
     function loadAudio() {
       audio.load();
-      console.log("blurp");
     }
     function playAudio() {
       audio.play();
@@ -63,6 +68,7 @@
 
   <script src="js/gallery.js"></script>
   <script src="js/remResize.directive.js"></script>
+  <script src="js/remRepeat.directive.js"></script>
   <script src="js/installs/installs.dataservice.js"></script>
   <script src="js/controllers/gallery.controller.js"></script>
   <script src="js/controllers/install.controller.js"></script>

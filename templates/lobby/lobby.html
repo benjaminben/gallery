@@ -1,8 +1,19 @@
 <div id="lobbyInstall{{$index}}"
+     on-finish-render="ngRepeatFinished"
      ng-repeat="install in gallery.installs"
      ng-click="gallery.setSelectedInstall($index);
                gallery.setInstallPath(install.pathName);
                (gallery.installIsSelected = !gallery.installIsSelected)">
+  <div class="lobbyPlayButton"
+       onclick="loadAudio()"
+       ng-click="$event.stopPropagation()">
+    <a id="playButton{{$index}}"
+       ng-click="gallery.displayFooter = false"
+       ui-sref="install({title: '{{install.title}}'})">
+      <img src="https://i.imgur.com/tf6oy2w.png">
+    </a>
+  </div>
+
   <div class="lobbyInstallDetails"
        ng-if="$index === gallery.selectedInstall.index"
        ng-click="gallery.deselectInstall();
@@ -28,21 +39,37 @@
 <script>
 
 var deselectInstall = angular.element(document.getElementById('gallery')).scope().gallery.deselectInstall;
-// console.log(deselectInstall);
 var lobbyInstalls = [];
 var lobbyPreviews = [];
+var lobbyPlayButtons = [];
+
+// var loadLobby = angular.element(document.getElementById('gallery')).scope().gallery.loadLobby;
+// console.log(loadLobby);
+
+// var loadedLobby = angular.element(document.getElementById('gallery')).scope().gallery.loadedLobby;
+// console.log(loadedLobby);
+
+// loadedLobby();
+
+// loadedLobby.then(
+//   function(result) {
+//     console.log(result);
+//   }, function (err) {
+//     console.log(err)
+//   }
+// );
 
 var autoClick = function() {
   angular.element(this).triggerHandler('click');
 }
 
+var example = document.getElementById("example");
 
 var camera, scene, renderer;
 var effect, controls;
 var element, container;
 
 var raycaster = new THREE.Raycaster();
-var INTERSECTED;
 
 var clock = new THREE.Clock();
 
@@ -66,9 +93,32 @@ function createPreviews() {
   }
 }
 
+function createPlayButtons() {
+  var lobbyInstallPlayGeo = new THREE.PlaneBufferGeometry(10, 10);
+  var lobbyInstallPlayMat = new THREE.MeshBasicMaterial({color:0xff, side: THREE.DoubleSide})
+  for (var i = 0; i < lobbyInstalls.length; i ++) {
+    var parent = lobbyInstalls[i].lobbyPreview;
+
+    var button = new THREE.Mesh(lobbyInstallPlayGeo, lobbyInstallPlayMat);
+    button.position.y = parent.position.y;
+    button.position.x = parent.position.x;
+    button.position.z = parent.position.z - 10;
+
+    parent.playButton = button;
+
+    lobbyInstalls[i].playButton.autoClick = autoClick;
+
+    lobbyPlayButtons.push(button);
+
+    scene.add(lobbyPlayButtons[i]);
+
+  }
+}
+
 function addPreviewLinks() {
 
 }
+
 
 function init() {
   renderer = new THREE.WebGLRenderer();
@@ -86,7 +136,7 @@ function init() {
   // var crossMaterial = new THREE.LineBasicMaterial({ color: 0xAAFFAA });
 
   // // crosshair size
-  // var x = 0.01, y = 0.01;
+  // var x = 1, y = 1;
 
   // var crossGeometry = new THREE.Geometry();
 
@@ -112,6 +162,47 @@ function init() {
 
   // camera.add( crosshair );
 
+  var square = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3));
+  square.material = new THREE.MeshBasicMaterial({color: 0xff, wireframe:true});
+  square.position.z = -1;
+  // square.position.x = 0;
+  camera.add(square);
+
+  var square2 = new THREE.Mesh(new THREE.PlaneBufferGeometry(4,3));
+  square2.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true});
+  square2.position.z = -1;
+  square2.position.y = -1.5;
+  camera.add(square2);
+
+  // var _SCALE = 3;
+
+  // function Cursor() {
+  //   var geometry = new THREE.RingGeometry(
+  //   0.85 * Cursor.SIZE * _SCALE, 1 * Cursor.SIZE * _SCALE, 32
+  //   );
+  //   var material = new THREE.MeshBasicMaterial(
+  //   {
+  //     color: 0xffffff,
+  //     blending: THREE.AdditiveBlending,
+  //     side: THREE.DoubleSide
+  //   }
+  //   );
+  //   THREE.Mesh.call(this, geometry, material);
+  // }
+
+  // Cursor.SIZE = 0.1 * _SCALE;
+  // Cursor.prototype = Object.create(THREE.Mesh.prototype);
+  // Cursor.prototype.constructor = Cursor;
+
+  // var cursor = new Cursor();
+  // camera.add(cursor);
+
+  // var cursorGeo = new THREE.RingGeometry(1, 1, 8);
+  // var cursorMat = new THREE.MeshBasicMaterial({color: 0xffff00, side: THREE.DoubleSide});
+  // var cursor = new THREE.Mesh(cursorGeo, cursorMat);
+  // cursor.position.set(0, 0, -1);
+  // console.log(cursor);
+  // square.add(cursor);
 
   scene.add(camera);
 
@@ -166,17 +257,20 @@ function init() {
   mesh.rotation.x = -Math.PI / 2;
   scene.add(mesh);
 
-window.addEventListener("load", pageFullyLoaded, false);
-
+  window.addEventListener("load", function load() {
+    window.removeEventListener("load", load, false);
+    pageFullyLoaded();
+  }, false);
   function pageFullyLoaded(e) {
-    lobbyInstalls[0] = document.getElementById("lobbyInstall0");
-    lobbyInstalls[1] = document.getElementById("lobbyInstall1");
-    lobbyInstalls[2] = document.getElementById("lobbyInstall2");
-    lobbyInstalls[3] = document.getElementById("lobbyInstall3");
+    for (var i = 0; i < 4; i++) {
+      lobbyInstalls[i] = document.getElementById("lobbyInstall" + i);
+      lobbyInstalls[i].playButton = document.getElementById("playButton" + i);
+    }
+    // lobbyInstalls[0] = document.getElementById("lobbyInstall0");
+    // lobbyInstalls[1] = document.getElementById("lobbyInstall1");
+    // lobbyInstalls[2] = document.getElementById("lobbyInstall2");
+    // lobbyInstalls[3] = document.getElementById("lobbyInstall3");
 
-    // lobbyInstalls.forEach(function(install) {
-    //   install.addEventListener("mouseover", autoClick, false);
-    // })
     var installsPromise = new Promise(function(resolve, reject) {
 
       if (lobbyInstalls.length > 0) {
@@ -196,12 +290,32 @@ window.addEventListener("load", pageFullyLoaded, false);
     ).then(
       function(result) {
        createPreviews();
+       createPlayButtons();
      }, function(err) {
       console.log(err)
      }
-    )
-
+    );
   };
+
+  // var p1 = new Promise(function(resolve, reject) {
+  //   var lobbyLoaded = angular.element(document.getElementById('gallery')).scope().gallery.lobbyLoaded;
+  //   console.log(lobbyLoaded);
+  //   lobbyLoaded.then(
+  //     function(result) {
+  //       console.log(result);
+  //     }, function(err) {
+  //       console.log(err);
+  //     }
+  //   ).then(
+  //     function(result) {
+  //      createPreviews();
+  //    }, function(err) {
+  //     console.log(err)
+  //    }
+  //   );
+  // })
+
+  // loadLobby();
 
   window.addEventListener('resize', resize, false);
   setTimeout(resize, 1);
@@ -234,20 +348,28 @@ function render(dt) {
   vector.applyQuaternion( camera.quaternion ).add(camera.position);
 
   raycaster.set( camera.position, vector.sub( camera.position ).normalize(), .0001, 700 );
-  var intersects = raycaster.intersectObjects( lobbyPreviews );
+  var installIntersects = raycaster.intersectObjects( lobbyPreviews );
+  var playButtonIntersects = raycaster.intersectObjects( lobbyPlayButtons );
 
-  if (intersects[0]) {
+  if (installIntersects[0]) {
       lobbyInstalls.forEach(function(install) {
-          if (intersects[0].object === install.lobbyPreview) {
-              // autoClick();
-              // console.log(install.autoClick)
+          if (installIntersects[0].object === install.lobbyPreview) {
               install.autoClick()
           } else {
-              // preview.material.color.setHex(0x00ff00)
+              // deselectInstall();
           }
       })
   } else {
-      deselectInstall();
+      // deselectInstall();
+  }
+
+  if (playButtonIntersects[0]) {
+    lobbyInstalls.forEach(function(install) {
+      if (playButtonIntersects[0].object === install.lobbyPreview.playButton) {
+        install.playButton.autoClick();
+        // console.log(install.playButton)
+      }
+    })
   }
 }
 

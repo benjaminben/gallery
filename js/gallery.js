@@ -4,12 +4,23 @@
 
   angular
     .module('gallery', ['ui.router'])
-    .config(router);
+    .config(router)
+    .directive('onFinishRender', function ($timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                if (scope.$last === true) {
+                    $timeout(function () {
+                        scope.$emit('ngRepeatFinished');
+                    });
+                }
+            }
+        }
+    });
 
   router.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"];
 
   function router ($stateProvider, $urlRouterProvider, $locationProvider) {
-    // $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('home', {
@@ -24,7 +35,8 @@
       })
       .state('lobby', {
         url: '/lobby',
-        templateUrl: 'templates/lobby/lobby.html'
+        templateUrl: 'templates/lobby/lobby.html',
+        reload: true
       });
   };
 
