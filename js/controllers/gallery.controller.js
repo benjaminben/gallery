@@ -43,15 +43,20 @@ var landscape;
     //   })
     // }
 
-    vm.loadedLobby = function(){
-     $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-           vm.$log.log("dunzo");
-           vm.lobbyLoaded = true;
-      });
-     return new Promise(function(resolve, reject) {
-      if (vm.lobbyLoaded) resolve();
-     })
-    };
+    // vm.loadedLobby = function(){
+    //  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+    //        vm.$log.log("dunzo");
+    //        vm.lobbyLoaded = true;
+    //   });
+    //  return new Promise(function(resolve, reject) {
+    //   if (vm.lobbyLoaded) resolve();
+    //  })
+    // };
+
+    $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+          vm.$log.log("dunzo");
+          vm.lobbyLoaded = true;
+     });
 
     vm.audio;
     vm.installAudioPath;
@@ -107,15 +112,6 @@ var landscape;
     function installAudioClear() {
       vm.installAudioPath = null;
     }
-
-    // function enterLobby() {
-    //   // $state.transitionTo("lobby", {reload: true})
-    //   // vm.inLobby = true
-    // }
-
-    // function exitLobby() {
-    //   // vm.inLobby = false;
-    // }
 
     landscape = vm.window.widthIsGreaterThanHeight();
 
