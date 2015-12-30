@@ -84,7 +84,9 @@ function createPreviews() {
       color: 0xffffff,
       side: THREE.DoubleSide,
       map: THREE.ImageUtils.loadTexture(
-        'templates/lobby/textures/patterns/wood.jpg'
+        // "'" +
+        angular.element(document.getElementById('gallery')).scope().gallery.installs[i].previewPic
+         // + "'"
       )
     });
     lobbyInstalls[i].lobbyPreview = new THREE.Mesh(lobbyPreviewGeo, lobbyPreviewMat);
@@ -349,7 +351,6 @@ function init() {
   window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false);
     pageFullyLoaded();
-    console.log("uncomment 317 when finished")
   }, false);
   function pageFullyLoaded(e) {
     for (var i = 0; i < 4; i++) {

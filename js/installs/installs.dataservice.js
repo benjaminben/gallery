@@ -9,10 +9,20 @@ angular.module("gallery")
   function installsDataService($log) {
     var installs = [
       {
+        title: 'honey',
+        artist: 'mason',
+        pathName: 'honey',
+        previewPic: 'assets/installs/previews/honey.jpg',
+        date: "spring 16",
+        geo: "HT&E",
+        tech: "Three.JS",
+        audio: "js/installs/honey/sound/honey.mp3"
+      },
+      {
         title: 'The Grave',
         artist: 'mason',
         pathName: 'grave',
-        previewPic: 'https://i.imgur.com/wrbWicL.jpg',
+        previewPic: 'assets/installs/previews/grave.jpg',
         date: "fall 15",
         geo: "los angeles",
         tech: "Three.JS",
@@ -22,26 +32,16 @@ angular.module("gallery")
         title: 'SRiS',
         artist: 'da undagrnd',
         pathName: 'test',
-        previewPic: 'https://i.imgur.com/eBneb9I.png',
+        previewPic: 'assets/installs/previews/sris.png',
         date: "winter 20",
         geo: "roxville, MW",
         tech: "Three.JS",
       },
       {
-        title: 'honey',
-        artist: 'mason',
-        pathName: 'honey',
-        previewPic: 'https://i.imgur.com/hQsoyem.jpg',
-        date: "spring 16",
-        geo: "HT&E",
-        tech: "Three.JS",
-        audio: "js/installs/honey/sound/honey.mp3"
-      },
-      {
         title: 'too many tests',
         artist: "f minus",
         pathName: "fedrox",
-        previewPic: "https://i.imgur.com/kEvvMQv.jpg",
+        previewPic: "assets/installs/previews/fedrox.jpg",
         date: "spring 16",
         geo: "spacelol",
         tech: "Three.JS",
