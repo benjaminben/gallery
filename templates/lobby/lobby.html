@@ -42,6 +42,7 @@ var deselectInstall = angular.element(document.getElementById('gallery')).scope(
 var lobbyInstalls = [];
 var lobbyPreviews = [];
 var lobbyPlayButtons = [];
+var lobbyNavButtons = [];
 
 // var loadLobby = angular.element(document.getElementById('gallery')).scope().gallery.loadLobby;
 // console.log(loadLobby);
@@ -136,6 +137,30 @@ function createPlayButtons() {
     scene.add(lobbyPlayButtons[i]);
 
   }
+}
+
+function createNavButtons() {
+  var stillButtonGeo = new THREE.PlaneBufferGeometry(200, 80);
+  var stillButtonMat = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide})
+  var stillButton = new THREE.Mesh(stillButtonGeo, stillButtonMat);
+  stillButton.position.z = 490;
+  stillButton.position.x = 200;
+  stillButton.position.y = 60;
+
+  lobbyNavButtons.push(stillButton);
+
+  var liveButtonGeo = new THREE.PlaneBufferGeometry(200, 80);
+  var liveButtonMat = new THREE.MeshBasicMaterial({color: 0x00ff00, side: THREE.DoubleSide})
+  var liveButton = new THREE.Mesh(liveButtonGeo, liveButtonMat);
+  liveButton.position.z = 490;
+  liveButton.position.x = -300;
+  liveButton.position.y = 60;
+
+  lobbyNavButtons.push(liveButton);
+
+  scene.add(stillButton);
+  scene.add(liveButton);
+
 }
 
 function createFloor() {
@@ -240,7 +265,7 @@ function init() {
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(90, 1, .0001, 7000);
-  camera.position.set(0, 1000, 0);
+  camera.position.set(-300, 70, 0);
 
   // var crossMaterial = new THREE.LineBasicMaterial({ color: 0xAAFFAA });
 
@@ -315,6 +340,7 @@ function init() {
 
   scene.add(camera);
 
+  /////RESET ORBIT CONTROLS
   controls = new THREE.OrbitControls(camera, element);
   controls.rotateUp(Math.PI / 4);
   controls.target.set(
@@ -347,6 +373,7 @@ function init() {
   createFloor();
   // createCeiling();
   createWalls();
+  createNavButtons();
 
   window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false);
@@ -417,6 +444,7 @@ function render(dt) {
   raycaster.set( camera.position, vector.sub( camera.position ).normalize(), .0001, 700 );
   var installIntersects = raycaster.intersectObjects( lobbyPreviews );
   var playButtonIntersects = raycaster.intersectObjects( lobbyPlayButtons );
+  var navButtonIntersects = raycaster.intersectObjects( lobbyNavButtons );
 
   if (installIntersects[0]) {
       lobbyInstalls.forEach(function(install) {
@@ -437,6 +465,17 @@ function render(dt) {
         // console.log(install.playButton)
       }
     })
+  }
+
+  if (navButtonIntersects[0]) {
+    console.log(navButtonIntersects[0])
+    if (navButtonIntersects[0].object === lobbyNavButtons[0]) {
+      moveCamera(0, 70, 0);
+    } else if (navButtonIntersects[0].object === lobbyNavButtons[1]) {
+      moveCamera(-300, 70, 0);
+    }
+  } else {
+    // console.log(navButtonIntersects[0])
   }
 }
 
