@@ -77,45 +77,170 @@ var clock = new THREE.Clock();
 init();
 animate();
 
+// function createPreviews() {
+//   var geometry = new THREE.PlaneGeometry(400, 100);
+//   var material;
+//   var loader = new THREE.TextureLoader();
+
+//   for (var i = 0; i < lobbyInstalls.length; i++) {
+
+//     var texturePromise = new Promise(function(resolve, reject) {
+//       loader.load(
+
+//         angular.element(document.getElementById('gallery')).scope().gallery.installs[i].previewPic,
+
+//         function ( texture ) {
+//           console.log(texture);
+//           material = new THREE.MeshBasicMaterial({
+//             color: 0xffffff,
+//             side: THREE.DoubleSide,
+//             map: texture
+//           });
+//         },
+
+//         function ( xhr ) {
+//           console.log ( (xhr.loaded / xhr.total * 100) + '% loaded' );
+//         },
+
+//         function ( xhr ) {
+//           console.log( 'error loading preview for install preview' );
+//         }
+//       );
+
+//     });
+
+//     texturePromise.then(
+//       function(result) {
+//         console.log("merp");
+//         lobbyInstalls[i].lobbyPreview = new THREE.Mesh(geometry, material);
+//         lobbyInstalls[i].lobbyPreview.position.y = 72;
+//         if (i === 0) {
+//           lobbyInstalls[i].lobbyPreview.position.x = 490;
+//           lobbyInstalls[i].lobbyPreview.position.z = 0;
+//           lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+//         } else if (i === 1) {
+//           lobbyInstalls[i].lobbyPreview.position.x = 200;
+//           lobbyInstalls[i].lobbyPreview.position.z = -490;
+//         } else if (i === 2) {
+//           lobbyInstalls[i].lobbyPreview.position.x = -170;
+//           // lobbyInstalls[i].lobbyPreview.position.z = 490;
+//           lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+//         } else if (i === 3) {
+//           lobbyInstalls[i].lobbyPreview.position.x = -490;
+//           // lobbyInstalls[i].lobbyPreview.position.z = 490;
+//           lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+//         }
+
+//         lobbyPreviews.push(lobbyInstalls[i].lobbyPreview);
+//         scene.add(lobbyPreviews[i]);
+
+//         lobbyInstalls[i].autoClick = autoClick;
+//       }, function(err) {
+//       console.log(err);
+//       console.log('derp')
+//     }
+//   )
+
+//   }
+// }
+
 function createPreviews() {
-  console.log(lobbyInstalls.length);
-  var lobbyPreviewGeo = new THREE.PlaneGeometry(400, 100);
+  var geometry = new THREE.PlaneGeometry(400, 100);
+  var material;
+  var loader = new THREE.TextureLoader();
+
   for (var i = 0; i < lobbyInstalls.length; i++) {
-    var lobbyPreviewMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      side: THREE.DoubleSide,
-      map: THREE.ImageUtils.loadTexture(
-        // "'" +
-        angular.element(document.getElementById('gallery')).scope().gallery.installs[i].previewPic
-         // + "'"
-      )
-    });
-    lobbyInstalls[i].lobbyPreview = new THREE.Mesh(lobbyPreviewGeo, lobbyPreviewMat);
-    lobbyInstalls[i].lobbyPreview.position.y = 72;
-    if (i === 0) {
-      lobbyInstalls[i].lobbyPreview.position.x = 490;
-      lobbyInstalls[i].lobbyPreview.position.z = 0;
-      lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
-    } else if (i === 1) {
-      lobbyInstalls[i].lobbyPreview.position.x = 200;
-      lobbyInstalls[i].lobbyPreview.position.z = -490;
-    } else if (i === 2) {
-      lobbyInstalls[i].lobbyPreview.position.x = -170;
-      // lobbyInstalls[i].lobbyPreview.position.z = 490;
-      lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
-    } else if (i === 3) {
-      lobbyInstalls[i].lobbyPreview.position.x = -490;
-      // lobbyInstalls[i].lobbyPreview.position.z = 490;
-      lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
-    }
+
+    (function(i) {
+      console.log(i);
+
+      lobbyInstalls[i].lobbyPreview = new THREE.Mesh(geometry, material);
+      lobbyInstalls[i].lobbyPreview.position.y = 72;
+      if (i === 0) {
+        lobbyInstalls[i].lobbyPreview.position.x = 490;
+        lobbyInstalls[i].lobbyPreview.position.z = 0;
+        lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+      } else if (i === 1) {
+        lobbyInstalls[i].lobbyPreview.position.x = 200;
+        lobbyInstalls[i].lobbyPreview.position.z = -490;
+      } else if (i === 2) {
+        lobbyInstalls[i].lobbyPreview.position.x = -170;
+        // lobbyInstalls[i].lobbyPreview.position.z = 490;
+        lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+      } else if (i === 3) {
+        lobbyInstalls[i].lobbyPreview.position.x = -490;
+        // lobbyInstalls[i].lobbyPreview.position.z = 490;
+        lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+      }
+
+
+      loader.load(
+
+        angular.element(document.getElementById('gallery')).scope().gallery.installs[i].previewPic,
+
+        function ( texture ) {
+          console.log(texture);
+          lobbyInstalls[i].lobbyPreview.material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            side: THREE.DoubleSide,
+            map: texture
+          });
+
+        },
+
+        function ( xhr ) {
+          console.log ( (xhr.loaded / xhr.total * 100) + '% loaded' );
+        },
+
+        function ( xhr ) {
+          console.log( 'error loading preview for install preview' );
+        }
+      );
 
     lobbyPreviews.push(lobbyInstalls[i].lobbyPreview);
-
-    lobbyInstalls[i].autoClick = autoClick;
-
     scene.add(lobbyPreviews[i]);
+    lobbyInstalls[i].autoClick = autoClick;
+    })(i);
+
   }
 }
+
+// function createPreviews() {
+//   console.log(lobbyInstalls.length);
+//   var lobbyPreviewGeo = new THREE.PlaneGeometry(400, 100);
+//   for (var i = 0; i < lobbyInstalls.length; i++) {
+//     var lobbyPreviewMat = new THREE.MeshBasicMaterial({
+//       color: 0xffffff,
+//       // side: THREE.DoubleSide,
+//       map: THREE.ImageUtils.loadTexture(
+//         // "'" +
+//         angular.element(document.getElementById('gallery')).scope().gallery.installs[i].previewPic
+//          // + "'"
+//       )
+//     });
+//     lobbyInstalls[i].lobbyPreview = new THREE.Mesh(lobbyPreviewGeo, lobbyPreviewMat);
+//     lobbyInstalls[i].lobbyPreview.position.y = 72;
+//     if (i === 0) {
+//       lobbyInstalls[i].lobbyPreview.position.x = 480;
+//       lobbyInstalls[i].lobbyPreview.position.z = 0;
+//       lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+//     } else if (i === 1) {
+//       lobbyInstalls[i].lobbyPreview.position.x = 200;
+//       lobbyInstalls[i].lobbyPreview.position.z = -480;
+//     } else if (i === 2) {
+//       lobbyInstalls[i].lobbyPreview.position.x = -180;
+//       // lobbyInstalls[i].lobbyPreview.position.z = 490;
+//       lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
+//     } else if (i === 3) {
+//       lobbyInstalls[i].lobbyPreview.position.x = -480;
+//       // lobbyInstalls[i].lobbyPreview.position.z = 490;
+//       lobbyInstalls[i].lobbyPreview.rotation.y = Math.PI / 2;
+//     }
+//     lobbyPreviews.push(lobbyInstalls[i].lobbyPreview);
+//     lobbyInstalls[i].autoClick = autoClick;
+//     scene.add(lobbyPreviews[i]);
+//   }
+// }
 
 function createPlayButtons() {
   var lobbyInstallPlayGeo = new THREE.PlaneBufferGeometry(10, 10);
@@ -140,19 +265,19 @@ function createPlayButtons() {
 }
 
 function createNavButtons() {
-  var stillButtonGeo = new THREE.PlaneBufferGeometry(200, 80);
+  var stillButtonGeo = new THREE.PlaneBufferGeometry(150, 50);
   var stillButtonMat = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide})
   var stillButton = new THREE.Mesh(stillButtonGeo, stillButtonMat);
-  stillButton.position.z = 490;
+  stillButton.position.z = 480;
   stillButton.position.x = 200;
   stillButton.position.y = 60;
 
   lobbyNavButtons.push(stillButton);
 
-  var liveButtonGeo = new THREE.PlaneBufferGeometry(200, 80);
+  var liveButtonGeo = new THREE.PlaneBufferGeometry(150, 50);
   var liveButtonMat = new THREE.MeshBasicMaterial({color: 0x00ff00, side: THREE.DoubleSide})
   var liveButton = new THREE.Mesh(liveButtonGeo, liveButtonMat);
-  liveButton.position.z = 490;
+  liveButton.position.z = 480;
   liveButton.position.x = -300;
   liveButton.position.y = 60;
 
@@ -164,28 +289,44 @@ function createNavButtons() {
 }
 
 function createFloor() {
-  var texture = THREE.ImageUtils.loadTexture(
-    'templates/lobby/textures/patterns/wood.jpg'
-  );
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat = new THREE.Vector2(4, 4);
-  texture.anisotropy = renderer.getMaxAnisotropy();
-
-  var material = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
-    specular: 0xffffff,
-    shininess: 0,
-    shading: THREE.FlatShading,
-    map: texture,
-    side: THREE.DoubleSide
-  });
-
   var geometry = new THREE.PlaneGeometry(1000, 1000);
+  var material;
+  var loader = new THREE.TextureLoader();
 
-  var mesh = new THREE.Mesh(geometry, material);
-  mesh.rotation.x = -Math.PI / 2;
-  scene.add(mesh);
+  loader.load(
+
+    'templates/lobby/textures/patterns/wood.jpg',
+
+    function ( texture ) {
+      material = new THREE.MeshPhongMaterial({
+        color: 0xff0000,
+        specular: 0xffffff,
+        shininess: 0,
+        shading: THREE.FlatShading,
+        map: texture,
+        side: THREE.DoubleSide
+      });
+
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat = new THREE.Vector2(6, 6);
+      texture.anisotropy = renderer.getMaxAnisotropy();
+
+      var mesh = new THREE.Mesh(geometry, material);
+      mesh.rotation.x = -Math.PI / 2;
+      scene.add(mesh);
+    },
+
+    function ( xhr ) {
+      console.log ( (xhr.loaded / xhr.total * 100) + '% loaded' );
+    },
+
+    function ( xhr ) {
+      console.log( 'error loading floor' );
+    }
+
+  );
+
 }
 
 function createCeiling() {
@@ -194,7 +335,7 @@ function createCeiling() {
     // specular: 0xffffff,
     // shininess: 20,
     // shading: THREE.FlatShading,
-    side: THREE.BackSide
+    side: THREE.DoubleSide
   })
 
   var geometry = new THREE.PlaneGeometry(1000, 1000);
@@ -208,50 +349,72 @@ function createCeiling() {
 
 function createWalls() {
   var walls = [];
+  var geometry = new THREE.PlaneGeometry(1000, 144);
+  var material;
+  var loader = new THREE.TextureLoader();
 
-  var texture = THREE.ImageUtils.loadTexture(
-    'templates/lobby/textures/patterns/wall.jpg'
+  loader.load(
+
+    'templates/lobby/textures/patterns/wall.jpg',
+
+    function ( texture ) {
+      material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        // specular: 0xffffff,
+        // shininess: 20,
+        // shading: THREE.FlatShading,
+        side: THREE.DoubleSide,
+        map: texture
+      });
+
+      for (var i = 0; i < 4; i++) {
+        walls[i] = new THREE.Mesh(geometry, material)
+        walls[i].position.y = 72;
+      }
+
+      walls[0].position.z = 500;
+      walls[1].position.x = 500;
+      walls[1].rotation.y = -Math.PI / 2;
+      walls[2].position.z = -500;
+      walls[3].position.x = -500;
+      walls[3].rotation.y = -Math.PI / 2;
+
+      walls[4] = new THREE.Mesh(
+        new THREE.BoxGeometry(20, 144, 800),
+        new THREE.MeshBasicMaterial({
+          color: 0xffffff,
+          map: texture
+        })
+      );
+      walls[4].position.set(-150, 75, -100);
+
+      walls.forEach(function(wall) {
+        scene.add(wall);
+      });
+
+    },
+
+    function ( xhr ) {
+      console.log ( (xhr.loaded / xhr.total * 100) + '% loaded' );
+    },
+
+    function ( xhr ) {
+      console.log( 'error loading walls' );
+    }
   );
+}
 
-  var material = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    // specular: 0xffffff,
-    // shininess: 20,
-    // shading: THREE.FlatShading,
-    side: THREE.DoubleSide,
-    map: texture
-  })
-
-  var geometry = new THREE.PlaneGeometry(1000, 144)
-
-  for (var i = 0; i < 4; i++) {
-    walls[i] = new THREE.Mesh(geometry, material)
-    walls[i].position.y = 72
-  }
-
-  walls[0].position.z = 500;
-  walls[1].position.x = 500;
-  walls[1].rotation.y = -Math.PI / 2;
-  walls[2].position.z = -500;
-  walls[3].position.x = -500;
-  walls[3].rotation.y = -Math.PI / 2;
-
-  walls[4] = new THREE.Mesh(
-    new THREE.BoxGeometry(20, 144, 800),
-    new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      map: texture
-    })
+function setOrbitControls() {
+  controls.target.set(
+    camera.position.x + 0.1,
+    camera.position.y,
+    camera.position.z
   );
-  walls[4].position.set(-150, 72, -100);
-
-  walls.forEach(function(wall) {
-    scene.add(wall);
-  });
 }
 
 function moveCamera(x, y, z) {
   camera.position.set(x, y, z);
+  setOrbitControls();
 }
 
 function init() {
@@ -340,14 +503,9 @@ function init() {
 
   scene.add(camera);
 
-  /////RESET ORBIT CONTROLS
   controls = new THREE.OrbitControls(camera, element);
   controls.rotateUp(Math.PI / 4);
-  controls.target.set(
-    camera.position.x + 0.1,
-    camera.position.y,
-    camera.position.z
-  );
+  setOrbitControls();
   controls.noZoom = true;
   controls.noPan = true;
 
@@ -371,7 +529,7 @@ function init() {
   scene.add(light);
 
   createFloor();
-  // createCeiling();
+  createCeiling();
   createWalls();
   createNavButtons();
 
@@ -470,9 +628,9 @@ function render(dt) {
   if (navButtonIntersects[0]) {
     console.log(navButtonIntersects[0])
     if (navButtonIntersects[0].object === lobbyNavButtons[0]) {
-      moveCamera(0, 70, 0);
+      moveCamera(-350, 70, 0);
     } else if (navButtonIntersects[0].object === lobbyNavButtons[1]) {
-      moveCamera(-300, 70, 0);
+      moveCamera(100, 70, 0);
     }
   } else {
     // console.log(navButtonIntersects[0])
