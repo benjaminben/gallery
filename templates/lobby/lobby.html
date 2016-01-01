@@ -1,11 +1,10 @@
 <div id="lobbyInstall{{$index}}"
-     on-finish-render="ngRepeatFinished"
+     on-finish-render="lobbyLoaded"
      ng-repeat="install in gallery.installs"
      ng-click="gallery.setSelectedInstall($index);
                gallery.setInstallPath(install.pathName);
                (gallery.installIsSelected = !gallery.installIsSelected)">
   <div class="lobbyPlayButton"
-       onclick="loadAudio()"
        ng-click="$event.stopPropagation()">
     <a id="playButton{{$index}}"
        ng-click="gallery.displayFooter = false"
@@ -44,22 +43,6 @@ var lobbyPreviews = [];
 var lobbyPlayButtons = [];
 var lobbyNavButtons = [];
 
-// var loadLobby = angular.element(document.getElementById('gallery')).scope().gallery.loadLobby;
-// console.log(loadLobby);
-
-// var loadedLobby = angular.element(document.getElementById('gallery')).scope().gallery.loadedLobby;
-// console.log(loadedLobby);
-
-// loadedLobby();
-
-// loadedLobby.then(
-//   function(result) {
-//     console.log(result);
-//   }, function (err) {
-//     console.log(err)
-//   }
-// );
-
 var autoClick = function() {
   angular.element(this).triggerHandler('click');
 }
@@ -77,16 +60,42 @@ var clock = new THREE.Clock();
 init();
 animate();
 
+function createLobbyInstalls() {
+  var installsPromise = new Promise(function(resolve, reject) {
+    for (var i = 0; i < 4; i++) {
+      lobbyInstalls[i] = document.getElementById("lobbyInstall" + i);
+      lobbyInstalls[i].playButton = document.getElementById("playButton" + i);
+    }
+
+    if (lobbyInstalls.length > 0) {
+      resolve(lobbyInstalls);
+    } else {
+      reject(Error("trouble loading previews"));
+    }
+  });
+
+  installsPromise.then(
+    function(result) {
+      createPreviews();
+    }, function(err) {
+      console.log(err);
+    }
+  ).then(
+    function(result) {
+      createPlayButtons()
+    }, function(err) {
+      console.log(err);
+    }
+  )
+}
+
 function createPreviews() {
   var geometry = new THREE.PlaneGeometry(400, 100);
   var material;
   var loader = new THREE.TextureLoader();
 
   for (var i = 0; i < lobbyInstalls.length; i++) {
-
     (function(i) {
-      console.log(i);
-
       lobbyInstalls[i].lobbyPreview = new THREE.Mesh(geometry, material);
       lobbyInstalls[i].lobbyPreview.position.y = 72;
       if (i === 0) {
@@ -106,13 +115,11 @@ function createPreviews() {
         lobbyInstalls[i].lobbyPreview.rotation.y = -Math.PI / 2;
       }
 
-
       loader.load(
 
         angular.element(document.getElementById('gallery')).scope().gallery.installs[i].previewPic,
 
         function ( texture ) {
-          console.log(texture);
           lobbyInstalls[i].lobbyPreview.material = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             side: THREE.DoubleSide,
@@ -143,11 +150,15 @@ function createPlayButtons() {
   var lobbyInstallPlayMat = new THREE.MeshBasicMaterial({color:0xff, side: THREE.DoubleSide})
   for (var i = 0; i < lobbyInstalls.length; i ++) {
     var parent = lobbyInstalls[i].lobbyPreview;
+    console.log(parent)
 
     var button = new THREE.Mesh(lobbyInstallPlayGeo, lobbyInstallPlayMat);
     button.position.y = parent.position.y;
     button.position.x = parent.position.x;
-    button.position.z = parent.position.z - 10;
+    button.position.z = parent.position.z;
+    button.rotation.y = parent.rotation.y;
+    button.rotation.x = parent.rotation.x;
+    button.rotation.z = parent.rotation.z;
 
     parent.playButton = button;
 
@@ -375,17 +386,17 @@ function init() {
 
   // camera.add( crosshair );
 
-  // var square = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3));
-  // square.material = new THREE.MeshBasicMaterial({color: 0xff, wireframe:true});
-  // square.position.z = -1;
-  // // square.position.x = 0;
-  // camera.add(square);
+  var square = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3));
+  square.material = new THREE.MeshBasicMaterial({color: 0xff, wireframe:true});
+  square.position.z = -1;
+  // square.position.x = 0;
+  camera.add(square);
 
-  // var square2 = new THREE.Mesh(new THREE.PlaneBufferGeometry(4,3));
-  // square2.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true});
-  // square2.position.z = -1;
-  // square2.position.y = -1.5;
-  // camera.add(square2);
+  var square2 = new THREE.Mesh(new THREE.PlaneBufferGeometry(4,3));
+  square2.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true});
+  square2.position.z = -1;
+  square2.position.y = -1.5;
+  camera.add(square2);
 
   // var _SCALE = 3;
 
@@ -448,42 +459,6 @@ function init() {
   createCeiling();
   createWalls();
   createNavButtons();
-
-  window.addEventListener("load", function load() {
-    window.removeEventListener("load", load, false);
-    pageFullyLoaded();
-  }, false);
-  function pageFullyLoaded(e) {
-    for (var i = 0; i < 4; i++) {
-      lobbyInstalls[i] = document.getElementById("lobbyInstall" + i);
-      lobbyInstalls[i].playButton = document.getElementById("playButton" + i);
-    }
-
-    var installsPromise = new Promise(function(resolve, reject) {
-
-      if (lobbyInstalls.length > 0) {
-        resolve(lobbyInstalls);
-      } else {
-        reject(Error("hurrrggh"));
-      }
-
-    });
-
-    installsPromise.then(
-      function(result) {
-        console.log(result);
-      }, function(err) {
-        console.log(err);
-      }
-    ).then(
-      function(result) {
-       createPreviews();
-       createPlayButtons();
-     }, function(err) {
-      console.log(err)
-     }
-    );
-  };
 
   window.addEventListener('resize', resize, false);
   setTimeout(resize, 1);
@@ -579,7 +554,5 @@ function fullscreen() {
     container.webkitRequestFullscreen();
   }
 }
-
-// 3. Travel to install template on next event
 
 </script>

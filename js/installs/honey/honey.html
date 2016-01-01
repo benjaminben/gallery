@@ -28,6 +28,7 @@
   // }
 
   function init() {
+    // clock.running = true;
     renderer = new THREE.WebGLRenderer();
     element = renderer.domElement;
     container = document.getElementById('example');
@@ -262,22 +263,6 @@
     window.addEventListener('resize', resize, false);
     setTimeout(resize, 1);
 
-    // context = audio;
-
-    // return new Promise(function(resolve, reject) {
-    //     createAudio(audio, function() {
-    //         resolve({
-    //             enter: enter,
-    //             leave: leave,
-    //             resize: resize,
-    //             render: render
-    //         });
-    //     }, reject);
-    // });
-
-    // createAudio();
-    // enter();
-
   }
 
   function resize() {
@@ -338,16 +323,6 @@
     update(clock.getDelta());
     render(clock.getDelta());
   }
-
-  // function enter() {
-  //   scene.visible = true;
-  //   muna.play();
-  // }
-
-  // function leave() {
-  //   scene.visible = false;
-  //   muna.stop();
-  // }
 
   function fullscreen() {
     if (container.requestFullscreen) {

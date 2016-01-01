@@ -12,6 +12,7 @@ var landscape;
     var vm = this;
     vm.message = "HI WORLD HOW ARE YOU?";
     vm.$log = $log;
+    vm.on = $scope.$on();
 
     vm.installIsSelected = false;
 
@@ -28,35 +29,9 @@ var landscape;
     vm.deselectInstall = deselectInstall;
     vm.scrollToInstall = scrollToInstall;
 
-    // vm.lobbyLoaded;
-
-    // vm.loadLobby = function() {
-    //   return new Promise(function(resolve, reject) {
-
-    //     loadedPromise =
-
-    //     if (vm.lobbyLoaded === true) {
-    //       resolve();
-    //     } else {
-    //       reject(Error("bye"));
-    //     }
-    //   })
-    // }
-
-    // vm.loadedLobby = function(){
-    //  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-    //        vm.$log.log("dunzo");
-    //        vm.lobbyLoaded = true;
-    //   });
-    //  return new Promise(function(resolve, reject) {
-    //   if (vm.lobbyLoaded) resolve();
-    //  })
-    // };
-
-    $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-          vm.$log.log("dunzo");
-          vm.lobbyLoaded = true;
-     });
+    $scope.$on('lobbyLoaded', function(ngRepeatFinishedEvent) {
+      createLobbyInstalls();
+    });
 
     vm.audio;
     vm.installAudioPath;

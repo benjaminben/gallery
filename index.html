@@ -50,9 +50,11 @@
     var audio = document.getElementById("installAudio");
     function loadAudio() {
       audio.load();
+      console.log("audio loaded: " + audio.src)
     }
     function playAudio() {
       audio.play();
+      console.log("playing audio: " + audio.src)
     }
     function stopAudio() {
       audio.removeEventListener("canplaythrough", playAudio, false);
