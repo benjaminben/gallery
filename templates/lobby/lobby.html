@@ -150,7 +150,6 @@ function createPlayButtons() {
   var lobbyInstallPlayMat = new THREE.MeshBasicMaterial({color:0xff, side: THREE.DoubleSide})
   for (var i = 0; i < lobbyInstalls.length; i ++) {
     var parent = lobbyInstalls[i].lobbyPreview;
-    console.log(parent)
 
     var button = new THREE.Mesh(lobbyInstallPlayGeo, lobbyInstallPlayMat);
     button.position.y = parent.position.y;
@@ -333,7 +332,7 @@ function createWalls() {
 
 function setOrbitControls() {
   controls.target.set(
-    camera.position.x + 0.1,
+    camera.position.x + .05,
     camera.position.y,
     camera.position.z
   );
@@ -342,6 +341,38 @@ function setOrbitControls() {
 function moveCamera(x, y, z) {
   camera.position.set(x, y, z);
   setOrbitControls();
+}
+
+function addLobbyNav() {
+  var geometry = new THREE.PlaneBufferGeometry(.15*camera.position.y, .15*camera.position.y);
+  var material;
+  var lobbyNav;
+  var loader = new THREE.TextureLoader();
+
+  loader.load(
+    'assets/rem-lobby-white-bg.png',
+
+    function ( texture ) {
+      material = new THREE.MeshBasicMaterial({
+        side: THREE.DoubleSide,
+        map: texture
+      });
+      lobbyNav = new THREE.Mesh(geometry, material);
+      lobbyNav.position.set(camera.position.x, (camera.position.y - .5*camera.position.y), camera.position.z - 1);
+      lobbyNav.rotation.x = -Math.PI / 2;
+      scene.add(lobbyNav);
+    },
+
+    function ( xhr ) {
+      console.log ( (xhr.loaded / xhr.total * 100) + '% loaded' );
+    },
+
+    function ( xhr ) {
+      console.log( 'error loading preview for install preview' );
+    }
+  );
+
+
 }
 
 function init() {
@@ -463,6 +494,8 @@ function init() {
   window.addEventListener('resize', resize, false);
   setTimeout(resize, 1);
 
+  addLobbyNav();
+
 }
 
 function resize() {
@@ -526,14 +559,6 @@ function render(dt) {
   } else {
     // console.log(navButtonIntersects[0])
   }
-}
-
-function selectPreview(PREVIEW) {
-  PREVIEW.material.color.setHex(0xff0000)
-}
-
-function deselectPreview(PREVIEW) {
-  PREVIEW.material.color.setHex(0x00ff00)
 }
 
 function animate(t) {

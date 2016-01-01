@@ -36,4 +36,47 @@
 <script>
 loadAudio();
 audio.addEventListener("canplaythrough", playAudio, false);
+
+function addLobbyNav() {
+  var geometry = new THREE.PlaneBufferGeometry(.15*camera.position.y, .15*camera.position.y);
+  var material;
+  var lobbyNav;
+  var loader = new THREE.TextureLoader();
+
+  loader.load(
+    'assets/rem-lobby-white-bg.png',
+
+    function ( texture ) {
+      material = new THREE.MeshBasicMaterial({
+        side: THREE.DoubleSide,
+        map: texture
+      });
+      lobbyNav = new THREE.Mesh(geometry, material);
+      lobbyNav.position.set(camera.position.x, (camera.position.y - .5*camera.position.y), camera.position.z - 1);
+      lobbyNav.rotation.x = -Math.PI / 2;
+      scene.add(lobbyNav);
+    },
+
+    function ( xhr ) {
+      console.log ( (xhr.loaded / xhr.total * 100) + '% loaded' );
+    },
+
+    function ( xhr ) {
+      console.log( 'error loading preview for install preview' );
+    }
+  );
+
+  var square = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3));
+  square.material = new THREE.MeshBasicMaterial({color: 0xff, wireframe:true});
+  square.position.z = -1;
+  // square.position.x = 0;
+  camera.add(square);
+
+  var square2 = new THREE.Mesh(new THREE.PlaneBufferGeometry(4,3));
+  square2.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true});
+  square2.position.z = -1;
+  square2.position.y = -1.5;
+  camera.add(square2);
+
+}
 </script>
