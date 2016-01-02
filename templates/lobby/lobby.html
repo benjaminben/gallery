@@ -1,37 +1,37 @@
-<div id="lobbyInstall{{$index}}"
-     on-finish-render="lobbyLoaded"
-     ng-repeat="install in gallery.installs"
-     ng-click="gallery.setSelectedInstall($index);
-               gallery.setInstallPath(install.pathName);
-               (gallery.installIsSelected = !gallery.installIsSelected)">
-  <div class="lobbyPlayButton"
-       ng-click="$event.stopPropagation()">
-    <a id="playButton{{$index}}"
-       ng-click="gallery.displayFooter = false"
-       ui-sref="install({title: '{{install.title}}'})">
-      <img src="https://i.imgur.com/tf6oy2w.png">
-    </a>
+  <div id="lobbyInstall{{$index}}"
+       on-finish-render="lobbyLoaded"
+       ng-repeat="install in gallery.installs"
+       ng-click="gallery.setSelectedInstall($index);
+                 gallery.setInstallPath(install.pathName);
+                 (gallery.installIsSelected = !gallery.installIsSelected)">
+    <div class="lobbyPlayButton"
+         ng-click="$event.stopPropagation()">
+      <a id="playButton{{$index}}"
+         ng-click="gallery.displayFooter = false"
+         ui-sref="install({title: '{{install.title}}'})">
+        <img src="https://i.imgur.com/tf6oy2w.png">
+      </a>
+    </div>
+
+    <div class="lobbyInstallDetails"
+         ng-if="$index === gallery.selectedInstall.index"
+         ng-click="gallery.deselectInstall();
+                   gallery.displayHeader = false;
+                   $event.stopPropagation()">
+        <div class="titleArtist">
+          <h2>
+            {{install.title}}
+          </h2>
+          <h3>{{install.artist}}</h3>
+        </div>
+
+        <div class="label">
+          <h5>{{install.geo}}</h5>
+          <h5>{{install.date}}</h5>
+          <h5>{{install.tech}}</h5>
+        </div>
+    </div>
   </div>
-
-  <div class="lobbyInstallDetails"
-       ng-if="$index === gallery.selectedInstall.index"
-       ng-click="gallery.deselectInstall();
-                 gallery.displayHeader = false;
-                 $event.stopPropagation()">
-      <div class="titleArtist">
-        <h2>
-          {{install.title}}
-        </h2>
-        <h3>{{install.artist}}</h3>
-      </div>
-
-      <div class="label">
-        <h5>{{install.geo}}</h5>
-        <h5>{{install.date}}</h5>
-        <h5>{{install.tech}}</h5>
-      </div>
-</div>
-</div>
 
 <div id="example"></div>
 
@@ -43,11 +43,11 @@ var lobbyPreviews = [];
 var lobbyPlayButtons = [];
 var lobbyNavButtons = [];
 
+var cursor;
+
 var autoClick = function() {
   angular.element(this).triggerHandler('click');
 }
-
-var example = document.getElementById("example");
 
 var camera, scene, renderer;
 var effect, controls;
@@ -331,6 +331,7 @@ function createWalls() {
 }
 
 function setOrbitControls() {
+  controls.rotateUp(Math.PI / 4);
   controls.target.set(
     camera.position.x + .05,
     camera.position.y,
@@ -371,12 +372,34 @@ function addLobbyNav() {
       console.log( 'error loading preview for install preview' );
     }
   );
+}
 
+function addCursor() {
+  var geometryL = new THREE.RingGeometry(.1, .11, 32);
+  var materialL = new THREE.MeshBasicMaterial({color: 0x0000ff});
+  cursorL = new THREE.Mesh(geometryL, materialL);
+  cursorL.position.z = -1;
+  cursorL.position.x = -1.5;
+  camera.add(cursorL);
 
+  var geometryR = new THREE.RingGeometry(.1, .11, 32);
+  var materialR = new THREE.MeshBasicMaterial({color: 0x0000ff});
+  cursorR = new THREE.Mesh(geometryR, materialR);
+  cursorR.position.z = -1;
+  cursorR.position.x = 1.5;
+  camera.add(cursorR);
+
+}
+
+function moveCursor() {
+  cursor.position.x = raycaster.ray.origin.x
+  cursor.position.y = raycaster.ray.origin.y
+  cursor.position.z = raycaster.ray.origin.z - 1
 }
 
 function init() {
   renderer = new THREE.WebGLRenderer();
+  renderer.autoClear = true;
   element = renderer.domElement;
   container = document.getElementById('example');
   container.appendChild(element);
@@ -417,17 +440,17 @@ function init() {
 
   // camera.add( crosshair );
 
-  var square = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3));
-  square.material = new THREE.MeshBasicMaterial({color: 0xff, wireframe:true});
-  square.position.z = -1;
-  // square.position.x = 0;
-  camera.add(square);
+  // var square = new THREE.Mesh(new THREE.PlaneBufferGeometry(3, 3));
+  // square.material = new THREE.MeshBasicMaterial({color: 0xff, wireframe:true});
+  // square.position.z = -1;
+  // // square.position.x = 0;
+  // camera.add(square);
 
-  var square2 = new THREE.Mesh(new THREE.PlaneBufferGeometry(4,3));
-  square2.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true});
-  square2.position.z = -1;
-  square2.position.y = -1.5;
-  camera.add(square2);
+  // var square2 = new THREE.Mesh(new THREE.PlaneBufferGeometry(4,3));
+  // square2.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe:true});
+  // square2.position.z = -1;
+  // square2.position.y = -1.5;
+  // camera.add(square2);
 
   // var _SCALE = 3;
 
@@ -462,10 +485,9 @@ function init() {
   scene.add(camera);
 
   controls = new THREE.OrbitControls(camera, element);
-  controls.rotateUp(Math.PI / 4);
-  setOrbitControls();
   controls.noZoom = true;
   controls.noPan = true;
+  setOrbitControls();
 
   function setOrientationControls(e) {
     if (!e.alpha) {
@@ -496,6 +518,8 @@ function init() {
 
   addLobbyNav();
 
+  addCursor();
+
 }
 
 function resize() {
@@ -519,46 +543,46 @@ function update(dt) {
 
 function render(dt) {
   effect.render(scene, camera);
-
   var vector = new THREE.Vector3(0, 0, -1);
   vector.applyQuaternion( camera.quaternion ).add(camera.position);
 
   raycaster.set( camera.position, vector.sub( camera.position ).normalize(), .0001, 700 );
+  // moveCursor();
+  // console.log(raycaster.ray.origin, camera.position, cursor.position);
   var installIntersects = raycaster.intersectObjects( lobbyPreviews );
   var playButtonIntersects = raycaster.intersectObjects( lobbyPlayButtons );
   var navButtonIntersects = raycaster.intersectObjects( lobbyNavButtons );
 
-  if (installIntersects[0]) {
-      lobbyInstalls.forEach(function(install) {
-          if (installIntersects[0].object === install.lobbyPreview) {
-              install.autoClick()
-          } else {
-              // deselectInstall();
-          }
-      })
-  } else {
-      // deselectInstall();
-  }
-
-  if (playButtonIntersects[0]) {
-    lobbyInstalls.forEach(function(install) {
-      if (playButtonIntersects[0].object === install.lobbyPreview.playButton) {
-        install.playButton.autoClick();
-        // console.log(install.playButton)
-      }
-    })
-  }
-
-  if (navButtonIntersects[0]) {
-    console.log(navButtonIntersects[0])
-    if (navButtonIntersects[0].object === lobbyNavButtons[0]) {
-      moveCamera(-350, 70, 0);
-    } else if (navButtonIntersects[0].object === lobbyNavButtons[1]) {
-      moveCamera(100, 70, 0);
+    if (installIntersects[0]) {
+        lobbyInstalls.forEach(function(install) {
+            if (installIntersects[0].object === install.lobbyPreview) {
+                install.autoClick()
+            } else {
+                // deselectInstall();
+            }
+        })
+    } else {
+        // deselectInstall();
     }
-  } else {
-    // console.log(navButtonIntersects[0])
-  }
+
+    if (playButtonIntersects[0]) {
+      lobbyInstalls.forEach(function(install) {
+        if (playButtonIntersects[0].object === install.lobbyPreview.playButton) {
+          install.playButton.autoClick();
+        }
+      })
+    }
+
+    if (navButtonIntersects[0]) {
+      console.log(navButtonIntersects[0])
+      if (navButtonIntersects[0].object === lobbyNavButtons[0]) {
+        moveCamera(-350, 70, 0);
+      } else if (navButtonIntersects[0].object === lobbyNavButtons[1]) {
+        moveCamera(100, 70, 0);
+      }
+    } else {
+    }
+
 }
 
 function animate(t) {

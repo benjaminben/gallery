@@ -33,6 +33,10 @@ a {
     display: none;
 }
 
+.cloak {
+  visibility: hidden;
+}
+
 #header {
   display: flex;
   justify-content: space-between;
