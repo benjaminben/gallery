@@ -9,11 +9,20 @@ angular.module("gallery")
   function installsDataService($log) {
     var installs = [
       {
+        title: 'suck it up.',
+        artist: 'BB',
+        pathName: 'suckitup',
+        previewPic: 'assets/installs/previews/suckitup.png',
+        date: "winter 16",
+        geo: "los angeles",
+        tech: "Three.JS",
+      },
+      {
         title: 'honey',
         artist: 'mason',
         pathName: 'honey',
         previewPic: 'assets/installs/previews/honey.jpg',
-        date: "spring 16",
+        date: "fall 15",
         geo: "HT&E",
         tech: "Three.JS",
         audio: "js/installs/honey/sound/honey.mp3"
@@ -27,15 +36,6 @@ angular.module("gallery")
         geo: "los angeles",
         tech: "Three.JS",
         audio: "js/installs/grave/sound/sourgirl.mp3"
-      },
-      {
-        title: 'SRiS',
-        artist: 'da undagrnd',
-        pathName: 'test',
-        previewPic: 'assets/installs/previews/sris.png',
-        date: "winter 20",
-        geo: "roxville, MW",
-        tech: "Three.JS",
       },
       {
         title: 'too many tests',
