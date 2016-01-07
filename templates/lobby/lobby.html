@@ -9,7 +9,6 @@
       <a id="playButton{{$index}}"
          ng-click="gallery.displayFooter = false"
          ui-sref="install({title: '{{install.title}}'})">
-        <img src="https://i.imgur.com/tf6oy2w.png">
       </a>
     </div>
 
@@ -37,6 +36,7 @@
 
 <script>
 
+var selectedInstall = angular.element(document.getElementById('gallery')).scope().gallery.selectedInstall;
 var deselectInstall = angular.element(document.getElementById('gallery')).scope().gallery.deselectInstall;
 var lobbyInstalls = [];
 var lobbyPreviews = [];
@@ -196,22 +196,35 @@ function createNavButtons() {
 
 function createFloor() {
   var geometry = new THREE.PlaneGeometry(1000, 1000);
-  var material;
+  var material = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    specular: 0xff0000,
+    shininess: 0,
+    shading: THREE.FlatShading,
+    side: THREE.DoubleSide
+  });
+  var bump;
   var loader = new THREE.TextureLoader();
+  var bumpLoader = new THREE.TextureLoader();
 
   loader.load(
 
     'templates/lobby/textures/patterns/wood.jpg',
 
     function ( texture ) {
-      material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        specular: 0xff0000,
-        shininess: 0,
-        shading: THREE.FlatShading,
-        map: texture,
-        side: THREE.DoubleSide
-      });
+
+      material.map = texture;
+        // bumpMap: bump,
+        // bumpScale: 1,
+
+
+      console.log(material.bumpMap)
+      console.log(material.map)
+
+      // bump.wrapS = THREE.RepeatWrapping;
+      // bump.wrapT = THREE.RepeatWrapping;
+      // bump.repeat = new THREE.Vector2(6, 6);
+      // bump.anisotropy = renderer.getMaxAnisotropy();
 
       texture.wrapS = THREE.RepeatWrapping;
       texture.wrapT = THREE.RepeatWrapping;
@@ -221,6 +234,7 @@ function createFloor() {
       var mesh = new THREE.Mesh(geometry, material);
       mesh.rotation.x = -Math.PI / 2;
       scene.add(mesh);
+
     },
 
     function ( xhr ) {
@@ -233,6 +247,28 @@ function createFloor() {
 
   );
 
+  bumpLoader.load(
+    'templates/lobby/textures/patterns/woodBump.jpg',
+
+    function (texture) {
+      material.bumpMap = texture;
+      material.bumpScale = 1;
+
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat = new THREE.Vector2(6, 6);
+      texture.anisotropy = renderer.getMaxAnisotropy();
+    },
+
+    function ( xhr ) {
+      console.log ( (xhr.loaded / xhr.total * 100) + '% loaded' );
+    },
+
+    function ( xhr ) {
+      console.log( 'error loading floor' );
+    }
+
+  );
 }
 
 function createCeiling() {
@@ -422,10 +458,14 @@ function createLights() {
     scene.add(stillLights[i]);
   }
 
+  var ambientLight = new THREE.AmbientLight(0x999999);
+  console.log(ambientLight);
+  scene.add(ambientLight)
+
 }
 
 function init() {
-  renderer = new THREE.WebGLRenderer();
+  renderer = Detector.webgl? new THREE.WebGLRenderer(): new THREE.CanvasRenderer();
   renderer.autoClear = true;
   element = renderer.domElement;
   container = document.getElementById('example');
@@ -495,6 +535,9 @@ function update(dt) {
 }
 
 function render(dt) {
+  // selectedInstall = angular.element(document.getElementById("gallery")).scope().gallery.selectedInstall;
+  // console.log(selectedInstall);
+
   effect.render(scene, camera);
   var vector = new THREE.Vector3(0, 0, -1);
   vector.applyQuaternion( camera.quaternion ).add(camera.position);
@@ -503,17 +546,22 @@ function render(dt) {
   var installIntersects = raycaster.intersectObjects( lobbyPreviews );
   var playButtonIntersects = raycaster.intersectObjects( lobbyPlayButtons );
   var navButtonIntersects = raycaster.intersectObjects( lobbyNavButtons );
-
     if (installIntersects[0]) {
-        lobbyInstalls.forEach(function(install) {
-            if (installIntersects[0].object === install.lobbyPreview) {
-                install.autoClick()
-            } else {
-                // deselectInstall();
-            }
-        })
+      // if (selectedInstall.title === undefined) {
+      //   selectedInstall = angular.element(document.getElementById("gallery")).scope().gallery.selectedInstall;
+      //   console.log(selectedInstall.title);
+      // }
+      lobbyInstalls.forEach(function(install) {
+        if (installIntersects[0].object === install.lobbyPreview) {
+          install.autoClick()
+        }
+      })
     } else {
+      // if (selectedInstall.title) {
         // deselectInstall();
+      //   selectedInstall = angular.element(document.getElementById("gallery")).scope().gallery.selectedInstall;
+      //   console.log(selectedInstall.title);
+      // }
     }
 
     if (playButtonIntersects[0]) {
@@ -554,4 +602,5 @@ function fullscreen() {
   }
 }
 
+javascript:(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();stats.domElement.style.cssText='position:fixed;left:0;top:0;z-index:10000';document.body.appendChild(stats.domElement);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);})()
 </script>

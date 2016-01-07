@@ -57,9 +57,9 @@ var landscape;
     }
 
     function deselectInstall() {
-      console.log("guuurrl");
       vm.selectedInstall = {};
       vm.installIsSelected = false;
+      clearAudio();
     }
 
     function scrollToInstall() {

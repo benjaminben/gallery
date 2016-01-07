@@ -5,9 +5,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
   font-family: "museo",serif;
   color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 h2, h3, h5 {
@@ -40,7 +44,7 @@ a {
 #header {
   display: flex;
   justify-content: space-between;
-  background-color:rgba(220, 221, 222, 0.75);
+  background-color:rgba(220, 221, 222, .95);
   height: 10vh;
   flex: 1;
   position: absolute;
@@ -87,6 +91,15 @@ a {
   font-weight: 700
 }
 
+#lobbyLink {
+  font-size: 2vh;
+}
+
+#sup {
+  font-size: 1.5vh;
+  white-space: nowrap;
+}
+
 .activeInstall {
   -webkit-filter: blur(3px) grayscale(30%);
 }
@@ -125,6 +138,7 @@ a {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  transition: .05s -webkit-filter linear;
 }
 
 .previewPic{
@@ -135,30 +149,28 @@ a {
 
 #footer {
   display: flex;
+  height: 20vh;
+  position: relative;
+}
+
+#installMiniContainer {
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  max-height: 15vh;
+  display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-  min-height: 13vh;
-  max-height: 150px;
-  flex: 1;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 0;
-  position: absolute;
 }
 
 .installMini {
-  height: 15vh;
+  height: 100%;
   width: 100%;
-  min-height: 13vh;
-  min-width: 13vh;
-  max-height: 150px;
   text-align: center;
   position: relative;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin: auto;
   -webkit-transition: -webkit-filter .05s linear;
   transition: filter .05s linear;
   cursor: pointer;
@@ -191,13 +203,13 @@ a {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  top: 50%;
+  top: 42.5vh;
   transform: translate(0, -100%);
 }
 .slideButton {
   display: inline-block;
-  height: 8vw;
-  width: 8vw;
+  width: 6vh;
+  min-width: 80px;
   text-align: center;
   border-radius: 50%;
   opacity: .8
@@ -207,16 +219,15 @@ a {
   -o-animation:      phase 2s infinite; /* Opera 12+ */
   animation:         phase 2s infinite; /* IE 10+, Fx 29+ */
 }
-.slideButton:hover {
-  color: black;
-}
 
 #slideDown {
   position: absolute;
   z-index: 5000;
   right: 2vw;
   top: 2vw;
-  width: 4vw;
+  width: 4vh;
+  min-width: 50px;
+  max-width: ;
   opacity: 0;
 
   -webkit-animation: off-phase 2s infinite; /* Safari 4+ */
@@ -303,6 +314,20 @@ a {
 
 .lobbyInstallDetails div {
   z-index: 100000;
+}
+
+.installDetails.ng-enter, .installDetails.ng-leave {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.installDetails.ng-enter,
+.installDetails.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.installDetails.ng-leave,
+.installDetails.ng-enter.ng-enter-active {
+  opacity:1;
 }
 
 @-webkit-keyframes phase {

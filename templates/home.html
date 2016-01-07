@@ -8,7 +8,7 @@
       <div class="installBackground"
            ng-class="{'activeInstall': $index === gallery.selectedInstall.index}"
            style="background-image: url({{install.previewPic}})"></div>
-      <div class="installDetails"
+      <div class="installDetails animate-if"
            ng-if="$index === gallery.selectedInstall.index"
            ng-click="gallery.deselectInstall();
                      gallery.displayHeader = false;
@@ -59,14 +59,16 @@
 </div>
 
 <div id="footer" ng-show="gallery.displayFooter">
-  <div class="installMini"
-       ng-repeat="install in gallery.installs"
-       ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
-       ng-click="gallery.setSelectedInstall($index);
-                 gallery.setInstallPath(install.pathName);
-                 (gallery.installIsSelected = true);
-                 gallery.$log.log(gallery.selectedInstall);
-                 gallery.scrollToInstall()"
-       style="background-image: url({{install.previewPic}})">
+  <div id="installMiniContainer">
+    <div class="installMini"
+         ng-repeat="install in gallery.installs"
+         ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
+         ng-click="gallery.setSelectedInstall($index);
+                   gallery.setInstallPath(install.pathName);
+                   (gallery.installIsSelected = true);
+                   gallery.$log.log(gallery.selectedInstall);
+                   gallery.scrollToInstall()"
+         style="background-image: url({{install.previewPic}})">
+    </div>
   </div>
 </div>

@@ -19,7 +19,7 @@ angular.module("gallery")
         audio: "js/installs/honey/sound/honey.mp3"
       },
       {
-        title: 'The Grave',
+        title: 'band geek',
         artist: 'mason',
         pathName: 'grave',
         previewPic: 'assets/installs/previews/grave.jpg',
