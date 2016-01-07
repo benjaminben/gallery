@@ -44,6 +44,7 @@ var landscape;
     vm.activeInstallMini = 'activeInstallMini';
 
     function setSelectedInstall(index) {
+      clearAudio();
       vm.selectedInstall = vm.installs[index];
       vm.selectedInstall.index = index;
       vm.installIsSelected = true;
@@ -53,7 +54,7 @@ var landscape;
 
     function setInstallPath(url) {
       vm.selectedInstall.path = 'js/installs/'+ url +'/'+ url +'.html';
-     console.log(vm.selectedInstall.path);
+      console.log(vm.selectedInstall.path);
     }
 
     function deselectInstall() {
