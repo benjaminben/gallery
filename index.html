@@ -7,7 +7,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.js"></script>
   <script src="js/third-party/threejs/Detector.js"></script>
@@ -28,7 +28,7 @@
     <img src="https://i.imgur.com/56x48Bt.png">
   </div>
   <div id="header"
-       ng-show="gallery.displayHeader"
+       ng-if="gallery.displayHeader"
        ng-class="{'slideMenu': gallery.displayHeader}"
        ng-click="gallery.displayHeader = false">
     <div id="logo"

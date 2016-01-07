@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('gallery', ['ui.router'])
+    .module('gallery', ['ui.router', 'ngAnimate'])
     .config(router)
     .directive('onFinishRender', function ($timeout) {
         return {
