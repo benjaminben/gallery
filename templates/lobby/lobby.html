@@ -394,24 +394,25 @@ function moveCamera(x, y, z) {
   setOrbitControls();
 }
 
-function addLobbyNav() {
+function addLogo() {
   var geometry = new THREE.PlaneBufferGeometry(.15*camera.position.y, .15*camera.position.y);
   var material;
-  var lobbyNav;
+  var logo;
   var loader = new THREE.TextureLoader();
 
   loader.load(
-    'assets/brand/rem-lobby-white-bg.png',
+    'assets/brand/rem-radha-ball.png',
 
     function ( texture ) {
       material = new THREE.MeshBasicMaterial({
         side: THREE.DoubleSide,
         map: texture
       });
-      lobbyNav = new THREE.Mesh(geometry, material);
-      lobbyNav.position.set(camera.position.x, (camera.position.y - .5*camera.position.y), camera.position.z);
-      lobbyNav.rotation.x = -Math.PI / 2;
-      scene.add(lobbyNav);
+      logo = new THREE.Mesh(geometry, material);
+      logo.position.set(camera.position.x, (camera.position.y - .5*camera.position.y), camera.position.z);
+      logo.rotation.x = -Math.PI / 2;
+      logo.rotation.z = -Math.PI / 2;
+      scene.add(logo);
     },
 
     function ( xhr ) {
@@ -509,7 +510,7 @@ function init() {
   window.addEventListener('resize', resize, false);
   setTimeout(resize, 1);
 
-  addLobbyNav();
+  addLogo();
 
   addCursor();
 
