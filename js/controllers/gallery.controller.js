@@ -10,7 +10,7 @@ var landscape;
 
   function GalleryController(installsDataService, $scope, $window, $log, $location, $anchorScroll, $timeout, $state, $q) {
     var vm = this;
-    vm.message = "always look around";
+    vm.message = '"look around"';
     vm.$log = $log;
     vm.on = $scope.$on();
 

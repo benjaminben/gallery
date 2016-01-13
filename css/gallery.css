@@ -52,6 +52,7 @@ a {
   width: 100%;
   z-index: 1000000;
   box-shadow: 0 0 1.2vw #171717;
+  color: #373737;
 }
 
 #header div {
