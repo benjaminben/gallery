@@ -33,10 +33,22 @@ var landscape;
       createLobbyInstalls();
     });
 
+    vm.$location = $location;
+    vm.currentLocation = vm.$location.$$absUrl;
+    vm.currentInstallUrl;
+
     vm.audio;
     vm.installAudioPath;
     vm.installAudioSet = installAudioSet;
     vm.installAudioClear = installAudioClear;
+
+    vm.showModal = false;
+    vm.modalTop = "";
+    vm.modalBottom = "";
+    vm.setModal = setModal;
+
+    vm.shareURL;
+    vm.shareMessage = "share link for warm fuzzies!:"
 
     vm.slidePosition = "slide0";
 
@@ -45,11 +57,18 @@ var landscape;
 
     function setSelectedInstall(index) {
       clearAudio();
+      vm.showModal = false;
       vm.selectedInstall = vm.installs[index];
       vm.selectedInstall.index = index;
       vm.installIsSelected = true;
       vm.slidePosition = "slide" + index;
       vm.installAudioSet();
+      // vm.setModal(vm.shareMessage, vm.currentInstallUrl)
+    }
+
+    function setModal(top, bottom) {
+      vm.modalTop = top;
+      vm.modalBottom = bottom;
     }
 
     function setInstallPath(url) {
@@ -60,6 +79,7 @@ var landscape;
     function deselectInstall() {
       vm.selectedInstall = {};
       vm.installIsSelected = false;
+      vm.showModal = false;
       clearAudio();
     }
 
@@ -97,6 +117,7 @@ var landscape;
         vm.window.width  = width;
 
         landscape = vm.window.widthIsGreaterThanHeight();
+        vm.showModal = false;
       });
     });
 

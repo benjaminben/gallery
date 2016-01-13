@@ -15,7 +15,7 @@ angular.module("gallery")
         previewPic: 'assets/installs/previews/suckitup.png',
         date: "winter 16",
         geo: "los angeles",
-        tech: "Three.JS",
+        tech: "Three.JS"
       },
       {
         title: 'honey',
@@ -44,7 +44,7 @@ angular.module("gallery")
         previewPic: "assets/installs/previews/fedrox.jpg",
         date: "spring 16",
         geo: "spacelol",
-        tech: "Three.JS",
+        tech: "Three.JS"
       }
     ];
 

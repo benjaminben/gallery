@@ -2,7 +2,8 @@
 <html lang="en" ng-app="gallery">
 <head>
   <meta charset="UTF-8">
-  <title>REM.ART</title>
+  <meta name="viewport" content="width=device-width, minimal-ui">
+  <title>rem</title>
   <link rel="stylesheet" type="text/css" href="css/gallery.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
@@ -21,7 +22,10 @@
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
-<body id="gallery" ng-controller="GalleryController as gallery" rem-resize>
+<body id="gallery"
+      ng-controller="GalleryController as gallery"
+      rem-resize
+      ng-click="gallery.showModal = false">
   <div ng-show="(!gallery.displayHeader)"
        ng-click="gallery.displayHeader = true"
        id="slideDown" class="slideButton">
@@ -45,6 +49,18 @@
         lobby
         </a>
       <span>
+    </div>
+  </div>
+
+  <div id="modal"
+       ng-if="gallery.showModal"
+       ng-click="$event.stopPropagation()"
+       class="animate-if">
+    <div id="modalContent">
+      <p>
+        {{gallery.modalTop}}
+      </p>
+      <textarea onclick="this.select()" readonly="readonly">{{gallery.modalBottom}}</textarea>
     </div>
   </div>
 

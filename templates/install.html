@@ -27,7 +27,9 @@
       <h5>{{gallery.selectedInstall.tech}}</h5>
     </div>
 
-    <div class="shareButton">
+    <div class="shareButton"
+         ng-click="gallery.showModal = !gallery.showModal;
+                   $event.stopPropagation()">
       <img src="https://i.imgur.com/yT0s902.png">
     </div>
 
