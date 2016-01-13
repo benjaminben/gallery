@@ -10,7 +10,7 @@ var landscape;
 
   function GalleryController(installsDataService, $scope, $window, $log, $location, $anchorScroll, $timeout, $state, $q) {
     var vm = this;
-    vm.message = "HI WORLD HOW ARE YOU?";
+    vm.message = "always look around";
     vm.$log = $log;
     vm.on = $scope.$on();
 
@@ -50,8 +50,6 @@ var landscape;
     vm.shareURL;
     vm.shareMessage = "share link for warm fuzzies!:"
 
-    vm.slidePosition = "slide0";
-
     vm.activeInstall = 'activeInstall';
     vm.activeInstallMini = 'activeInstallMini';
 
@@ -61,7 +59,6 @@ var landscape;
       vm.selectedInstall = vm.installs[index];
       vm.selectedInstall.index = index;
       vm.installIsSelected = true;
-      vm.slidePosition = "slide" + index;
       vm.installAudioSet();
     }
 
@@ -82,9 +79,13 @@ var landscape;
       clearAudio();
     }
 
-    function scrollToInstall() {
-      $location.hash(vm.selectedInstall);
-      $anchorScroll;
+    function scrollToInstall(path) {
+      var newHash = path;
+      if ($location.hash() !== newHash) {
+        $location.hash(path)
+      } else {
+        $anchorScroll();
+      }
     }
 
     // Listening for window dimensions to determine phone portrait v. landscape
