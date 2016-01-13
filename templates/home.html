@@ -40,7 +40,7 @@
           <div class="shareButton"
                ng-click="$event.stopPropagation();
                          gallery.$log.log(gallery.$location.$$absUrl);
-                         gallery.setModal( gallery.shareMessage, gallery.currentLocation + 'install/' + install.pathName);
+                         gallery.setModal( gallery.shareMessage, gallery.$location.$$absUrl + 'install/' + install.pathName);
                          gallery.showModal = !gallery.showModal">
             <img src="https://i.imgur.com/yT0s902.png">
           </div>

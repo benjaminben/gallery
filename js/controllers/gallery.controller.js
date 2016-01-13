@@ -63,7 +63,6 @@ var landscape;
       vm.installIsSelected = true;
       vm.slidePosition = "slide" + index;
       vm.installAudioSet();
-      // vm.setModal(vm.shareMessage, vm.currentInstallUrl)
     }
 
     function setModal(top, bottom) {
