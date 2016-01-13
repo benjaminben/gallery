@@ -67,10 +67,10 @@
          id="installMini{{$index}}"
          ng-repeat="install in gallery.installs"
          ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
-         ng-click="gallery.setSelectedInstall($index);
+         ng-click="gallery.scrollToInstall(install.pathName);
+                   gallery.setSelectedInstall($index);
                    gallery.setInstallPath(install.pathName);
-                   (gallery.installIsSelected = true);
-                   gallery.scrollToInstall(install.pathName)"
+                   (gallery.installIsSelected = true)"
          style="background-image: url({{install.previewPic}})">
     </div>
   </div>
