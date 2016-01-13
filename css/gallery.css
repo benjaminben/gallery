@@ -5,7 +5,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-family: "museo", sans-serif;
+  font-family: "museo-slab", serif;
   color: white;
   position: absolute;
   top: 0;
