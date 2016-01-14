@@ -94,7 +94,7 @@ a {
   margin-left: 50%;
   transform: translate(-50%, 0);
   background: rgba(255,255,255, .9);
-  box-shadow: 0 0 1.2vw #979797;
+  box-shadow: 0 0 1px #ffffff;
   border-radius: 5px;
   color: black;
   display: flex;
@@ -118,7 +118,9 @@ a {
   -moz-box-shadow: none;
   box-shadow: none;
   font-size: 1em;
-  font-family: "museo", sans-serif;
+  font-family: "museo-slab", serif;
+  -webkit-appearance: none;
+  resize: none;
 }
 
 .activeInstall {
