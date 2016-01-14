@@ -219,21 +219,21 @@ a {
   z-index: 0;
 }
 
-#slideButtonsContainer {
+.slideButtonContainer {
   position: fixed;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  top: 42.5vh;
+  top: 46vh;
   transform: translate(0, -100%);
 }
+#slideNextContainer {
+  right: 0px;
+}
 .slideButton {
-  display: inline-block;
   width: 6vh;
   min-width: 80px;
-  text-align: center;
   border-radius: 50%;
-  opacity: .8
+  opacity: .8;
+  margin: auto
 
   -webkit-animation: phase 2s infinite; /* Safari 4+ */
   -moz-animation:    phase 2s infinite; /* Fx 5+ */

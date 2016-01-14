@@ -47,12 +47,14 @@
       </div>
     </div>
   </div>
-  <div id="slideButtonsContainer" ng-if="!gallery.installIsSelected">
+  <div id="slideBackContainer" class="slideButtonContainer" ng-if="!gallery.installIsSelected">
     <div id="slideBack"
          class="slideButton"
          ng-click="gallery.installIsSelected = false;">
         <img src="https://i.imgur.com/u5JaP98.png">
     </div>
+  </div>
+  <div id="slideNextContainer" class="slideButtonContainer" ng-if="!gallery.installIsSelected">
     <div id="slideNext"
          class="slideButton"
          ng-click="gallery.installIsSelected = false;">
