@@ -181,7 +181,7 @@ a {
   position: absolute;
   width: 100vw;
   top: 80vh;
-  z-index: 300
+  z-index: 0;
 }
 
 #remIconArea {
@@ -237,7 +237,7 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 0;
+  z-index: 1;
 }
 
 .slideButtonContainer {
@@ -459,6 +459,7 @@ a {
   bottom: 0;
   left: 0;
   color: #f9f9f9;
+  z-index: 2
 }
 
 @media (min-width: 770px), only screen and (min-device-width: 320px) and (max-device-width: 768px) and (orientation: landscape) {
@@ -499,7 +500,6 @@ a {
     width: 20vw;
     top: 0;
     left: 0;
-    z-index: 0;
     justify-content: space-between;
     overflow-y: scroll;
   }
