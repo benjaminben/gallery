@@ -1,52 +1,54 @@
-<div id="installContainer">
-  <div id="installs" class="slide {{gallery.slidePosition}}">
-    <div class="install"
-         ng-repeat="install in gallery.installs"
-         id="{{install.pathName}}"
-         ng-click="gallery.setSelectedInstall($index);
-                   gallery.setInstallPath(install.pathName);
-                   (gallery.installIsSelected = !gallery.installIsSelected)">
-      <div class="installBackground"
-           ng-class="{'activeInstall': $index === gallery.selectedInstall.index}"
-           style="background-image: url({{install.previewPic}})"></div>
-      <div class="installDetails animate-if"
-           ng-if="$index === gallery.selectedInstall.index"
-           ng-click="gallery.deselectInstall();
-                     gallery.displayHeader = false;
-                     $event.stopPropagation()">
+<main>
+  <div id="installContainer">
+    <div id="installs" class="slide {{gallery.slidePosition}}">
+      <div class="install"
+           ng-repeat="install in gallery.installs"
+           id="{{install.pathName}}"
+           ng-click="gallery.setSelectedInstall($index);
+                     gallery.setInstallPath(install.pathName);
+                     (gallery.installIsSelected = !gallery.installIsSelected)">
+        <div class="installBackground"
+             ng-class="{'activeInstall': $index === gallery.selectedInstall.index}"
+             style="background-image: url({{install.previewPic}})"></div>
+        <div class="installDetails animate-if"
+             ng-if="$index === gallery.selectedInstall.index"
+             ng-click="gallery.deselectInstall();
+                       gallery.displayHeader = false;
+                       $event.stopPropagation()">
 
-          <div class="titleArtist">
-            <h2>
-              {{install.title}}
-            </h2>
-            <h3>{{install.artist}}</h3>
-          </div>
+            <div class="titleArtist">
+              <h2>
+                {{install.title}}
+              </h2>
+              <h3>{{install.artist}}</h3>
+            </div>
 
-          <div class="playButton"
-               onclick="loadAudio()"
-               ng-click="$event.stopPropagation()">
-            <a ng-click="gallery.displayFooter = false"
-               ui-sref="install({title: '{{install.pathName}}'})">
-              <img src="https://i.imgur.com/tf6oy2w.png">
-            </a>
-          </div>
+            <div class="playButton"
+                 onclick="loadAudio()"
+                 ng-click="$event.stopPropagation()">
+              <a ui-sref="install({title: '{{install.pathName}}'})">
+                <img src="https://i.imgur.com/tf6oy2w.png">
+              </a>
+            </div>
 
-          <div class="label">
-            <h5>{{install.geo}}</h5>
-            <h5>{{install.date}}</h5>
-            <h5>{{install.tech}}</h5>
-          </div>
+            <div class="label">
+              <h5>{{install.geo}}</h5>
+              <h5>{{install.date}}</h5>
+              <h5>{{install.tech}}</h5>
+            </div>
 
-          <div class="shareButton"
-               ng-click="$event.stopPropagation();
-                         gallery.setModal( gallery.shareMessage, 'http://' + gallery.$location.$$host + '#/install/' + install.pathName);
-                         gallery.showModal = !gallery.showModal">
-            <img src="https://i.imgur.com/yT0s902.png">
-          </div>
+            <div class="shareButton"
+                 ng-click="$event.stopPropagation();
+                           gallery.setModal( gallery.shareMessage, 'http://' + gallery.$location.$$host + '#/install/' + install.pathName);
+                           gallery.showModal = !gallery.showModal">
+              <img src="https://i.imgur.com/yT0s902.png">
+            </div>
 
+        </div>
       </div>
     </div>
   </div>
+
   <div id="slideBackContainer" class="slideButtonContainer" ng-if="!gallery.installIsSelected">
     <div id="slideBack"
          class="slideButton"
@@ -61,19 +63,5 @@
       <img src="https://i.imgur.com/qG16kOz.png">
     </div>
   </div>
-</div>
+</main>
 
-<div id="footer" ng-show="gallery.displayFooter">
-  <div id="installMiniContainer">
-    <div class="installMini"
-         id="installMini{{$index}}"
-         ng-repeat="install in gallery.installs"
-         ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
-         ng-click="gallery.scrollToInstall(install.pathName);
-                   gallery.setSelectedInstall($index);
-                   gallery.setInstallPath(install.pathName);
-                   (gallery.installIsSelected = true)"
-         style="background-image: url({{install.previewPic}})">
-    </div>
-  </div>
-</div>

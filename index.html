@@ -38,7 +38,7 @@
     <div id="logo"
          onclick="stopAudio(); clearAudio()"
          ng-click="gallery.displayFooter = true">
-      <a ui-sref="home"><h3 id="name">rem</h3></a>
+      <a ui-sref="home"><h3 id="name">main</h3></a>
     </div>
     <div id="sup"><span>{{gallery.message}}<span></div>
     <div id="lobbyLink">
@@ -61,6 +61,27 @@
         {{gallery.modalTop}}
       </p>
       <textarea onclick="this.select()" readonly="readonly">{{gallery.modalBottom}}</textarea>
+    </div>
+  </div>
+
+  <div id="installNav" ng-show="gallery.displayFooter">
+    <div id="remIconArea">
+      <a ng-click="gallery.deselectInstall()"
+         ui-sref="lobby"
+         onclick="stopAudio(); clearAudio()">
+      </a>
+    </div>
+    <div id="installMiniContainer">
+      <div class="installMini"
+           id="installMini{{$index}}"
+           ng-repeat="install in gallery.installs"
+           ng-class="{'activeInstallMini': $index === gallery.selectedInstall.index}"
+           ng-click="gallery.scrollToInstall(install.pathName);
+                     gallery.setSelectedInstall($index);
+                     gallery.setInstallPath(install.pathName);
+                     (gallery.installIsSelected = true)"
+           style="background-image: url({{install.previewPic}})">
+      </div>
     </div>
   </div>
 
