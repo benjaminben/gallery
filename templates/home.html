@@ -24,7 +24,7 @@
 
             <div class="playButton"
                  onclick="loadAudio()"
-                 ng-click="$event.stopPropagation()">
+                 ng-click="$event.stopPropagation(); gallery.leaveHome();">
               <a ui-sref="install({title: '{{install.pathName}}'})">
                 <img src="https://i.imgur.com/tf6oy2w.png">
               </a>

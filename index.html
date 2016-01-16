@@ -37,13 +37,13 @@
        ng-click="gallery.displayHeader = false">
     <div id="logo"
          onclick="stopAudio(); clearAudio()"
-         ng-click="gallery.displayFooter = true">
+         ng-click="gallery.goHome()">
       <a ui-sref="home"><h3 id="name">main</h3></a>
     </div>
     <div id="sup"><span>{{gallery.message}}<span></div>
     <div id="lobbyLink">
       <span>
-        <a ng-click="gallery.deselectInstall()"
+        <a ng-click="gallery.deselectInstall(); gallery.leaveHome()"
            ui-sref="lobby"
            onclick="stopAudio(); clearAudio()">
         lobby
@@ -64,9 +64,9 @@
     </div>
   </div>
 
-  <div id="installNav" ng-show="gallery.displayFooter">
+  <div id="installNav" ng-if="gallery.displayFooter">
     <div id="remIconArea">
-      <a ng-click="gallery.deselectInstall()"
+      <a ng-click="gallery.deselectInstall(); gallery.displayFooter = false"
          ui-sref="lobby"
          onclick="stopAudio(); clearAudio()">
       </a>

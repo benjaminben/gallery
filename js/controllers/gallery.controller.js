@@ -37,6 +37,19 @@ var landscape;
     vm.currentLocation = vm.$location.$$absUrl;
     vm.currentInstallUrl;
 
+    vm.goHome = goHome;
+    vm.leaveHome = leaveHome;
+
+    function goHome() {
+      vm.displayHeader = false;
+      vm.displayFooter = true;
+    }
+
+    function leaveHome() {
+      vm.displayHeader = false;
+      vm.displayFooter = true;
+    }
+
     vm.audio;
     vm.installAudioPath;
     vm.installAudioSet = installAudioSet;
