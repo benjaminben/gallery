@@ -69,7 +69,6 @@ var landscape;
 
     function setInstallPath(url) {
       vm.selectedInstall.path = 'js/installs/'+ url +'/'+ url +'.html';
-      console.log(vm.selectedInstall.path);
     }
 
     function deselectInstall() {
@@ -83,8 +82,10 @@ var landscape;
       var newHash = path;
       if ($location.hash() !== newHash) {
         $location.hash(path)
+        vm.$log.log($location)
       } else {
         $anchorScroll();
+        vm.$log.log($location)
       }
     }
 
