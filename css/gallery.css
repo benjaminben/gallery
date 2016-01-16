@@ -16,10 +16,9 @@ main {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
   max-width: 770px;
   margin: auto;
-  /*justify-content: space-between;*/
   text-shadow: 1px 1px 1px #979797;
   position: relative;
   color: #f9f9f9;
@@ -181,9 +180,8 @@ a {
   height: 20vh;
   position: absolute;
   width: 100vw;
-  bottom: 0;
-  left: 0;
-  z-index: 30000000;
+  top: 80vh;
+  z-index: 300
 }
 
 #remIconArea {
@@ -245,7 +243,7 @@ a {
 .slideButtonContainer {
   position: absolute;
   display: flex;
-  top: 46%;
+  top: 55%;
   transform: translate(0, -100%);
   z-index: 5;
 }
@@ -467,6 +465,7 @@ a {
   main, .install, .installDetails {
     max-width: 80vw;
     margin: auto;
+    height: 100vh;
   }
 
   #installContainer {
@@ -492,17 +491,13 @@ a {
     position: relative;
   }
 
-  .slideButtonContainer {
-    top: 55%;
-  }
-
   #installNav {
     display: flex;
     flex-flow: column nowrap;
     height: 100vh;
     position: relative;
     width: 20vw;
-    bottom: 0;
+    top: 0;
     left: 0;
     z-index: 0;
     justify-content: space-between;
