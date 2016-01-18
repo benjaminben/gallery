@@ -25,7 +25,8 @@ angular.module("gallery")
         date: "fall 15",
         geo: "HT&E",
         tech: "Three.JS",
-        audio: "js/installs/honey/sound/honey.mp3"
+        audio: "js/installs/honey/sound/honey.mp3",
+        av: "MUNA - 'Honey'"
       },
       {
         title: 'band geek',
@@ -35,7 +36,8 @@ angular.module("gallery")
         date: "fall 15",
         geo: "los angeles",
         tech: "Three.JS",
-        audio: "js/installs/grave/sound/sourgirl.mp3"
+        audio: "js/installs/grave/sound/sourgirl.mp3",
+        av: "STP - 'Sour Girl'"
       },
       {
         title: 'too many tests',
