@@ -18,6 +18,15 @@ angular.module("gallery")
         tech: "Three.JS"
       },
       {
+        title: 'hashtag_',
+        artist: "f minus",
+        pathName: "hashtag_",
+        previewPic: "assets/installs/previews/hashtag_.png",
+        date: "spring 16",
+        geo: "los angeles",
+        tech: "Instagram, Three.JS"
+      },
+      {
         title: 'honey',
         artist: 'mason',
         pathName: 'honey',
@@ -38,15 +47,6 @@ angular.module("gallery")
         tech: "Three.JS",
         audio: "js/installs/grave/sound/sourgirl.mp3",
         av: "STP - 'Sour Girl'"
-      },
-      {
-        title: 'hashtag_',
-        artist: "f minus",
-        pathName: "hashtag_",
-        previewPic: "assets/installs/previews/hashtag_.png",
-        date: "spring 16",
-        geo: "spacelol",
-        tech: "Instagram, Three.JS"
       }
     ];
 
