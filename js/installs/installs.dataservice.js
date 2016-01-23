@@ -12,7 +12,7 @@ angular.module("gallery")
         title: 'suck it up.',
         artist: 'BB',
         pathName: 'suckitup',
-        previewPic: 'assets/installs/previews/suckitup.png',
+        previewPic: 'assets/installs/previews/suckitup.jpg',
         date: "winter 16",
         geo: "los angeles",
         tech: "Three.JS"
@@ -21,7 +21,7 @@ angular.module("gallery")
         title: 'hashtag_',
         artist: "f minus",
         pathName: "hashtag_",
-        previewPic: "assets/installs/previews/hashtag_.png",
+        previewPic: "assets/installs/previews/hashtag_.jpg",
         date: "spring 16",
         geo: "los angeles",
         tech: "Instagram, Three.JS"
