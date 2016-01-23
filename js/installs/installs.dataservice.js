@@ -40,13 +40,13 @@ angular.module("gallery")
         av: "STP - 'Sour Girl'"
       },
       {
-        title: 'too many tests',
+        title: 'hashtag_',
         artist: "f minus",
-        pathName: "fedrox",
-        previewPic: "assets/installs/previews/fedrox.jpg",
+        pathName: "hashtag_",
+        previewPic: "assets/installs/previews/hashtag_.png",
         date: "spring 16",
         geo: "spacelol",
-        tech: "Three.JS"
+        tech: "Instagram, Three.JS"
       }
     ];
 
