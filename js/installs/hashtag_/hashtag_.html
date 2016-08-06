@@ -56,22 +56,19 @@
       if (tag !== "") {
         $.ajax({
           method: "GET",
-          url: "https://api.instagram.com/v1/tags/"+tag+"/media/recent?access_token=1578228172.467ede5.04a6ec58145743cc851a2d64b58d9627",
-          dataType: "jsonp",
-          jsonp: "callback",
-          jsonpCallback: "jsonpcallback",
+          url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ed651f24006907307beda0d26aafdbe2&tags="+tag+"&per_page=20&format=json&nojsoncallback=1",
           success: function(data) {
             console.log(data);
             var iterator = 0;
-            var allData = data.data;
+            var allData = data.photos.photo;
 
             fadeCanvasasOut();
 
             allData.forEach(function(data, index) {
-              var imgUrl = "http://" + data.images.standard_resolution.url.slice(8);
-              var imgHeight = data.images.standard_resolution.height;
-              var imgWidth = data.images.standard_resolution.width;
-              createCanvasas(imgUrl, index, imgHeight, imgWidth);
+              var imgUrl = "https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg";
+              // var imgHeight = data.images.standard_resolution.height;
+              // var imgWidth = data.images.standard_resolution.width;
+              createCanvasas(imgUrl, index, 500, 500);
               iterator++;
               if (iterator === allData.length) {
                 canvases.forEach(function(canvas) {
