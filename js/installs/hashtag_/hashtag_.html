@@ -4,8 +4,6 @@
  <script src="js/fonts/helvetiker_regular.typeface.js"></script>
 
   <script>
-    console.log("runnin")
-
     var bodyCam, cubeCamera, scene, renderer;
     var effect, controls;
     var element, container;
@@ -28,7 +26,6 @@
     function setTag(text) {
       if (text !== document.getElementById("tagInput").value) {
         document.getElementById("tagInput").value = text;
-        console.log(document.getElementById("tagInput").value);
         selectedTag = text;
         getTaggedPosts(text);
 
@@ -49,14 +46,11 @@
 
     function getTaggedPosts(tag) {
       var tag = document.getElementById("tagInput").value;
-      console.log(tag);
-
-      console.log("starting function");
 
       if (tag !== "") {
         $.ajax({
           method: "GET",
-          url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ed651f24006907307beda0d26aafdbe2&tags="+tag+"&per_page=20&format=json&nojsoncallback=1",
+          url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=25e7736df9f63bc513d9f9b9e3fbf502&tags="+tag+"&per_page=20&format=json&nojsoncallback=1",
           success: function(data) {
             console.log(data);
             var iterator = 0;
@@ -66,8 +60,9 @@
 
             allData.forEach(function(data, index) {
               var imgUrl = "https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg";
-              // var imgHeight = data.images.standard_resolution.height;
-              // var imgWidth = data.images.standard_resolution.width;
+              // LEGACY: from IG days
+                // var imgHeight = data.images.standard_resolution.height;
+                // var imgWidth = data.images.standard_resolution.width;
               createCanvasas(imgUrl, index, 500, 500);
               iterator++;
               if (iterator === allData.length) {
@@ -76,20 +71,16 @@
                 })
               }
             });
-            // window.setInterval(getTaggedPosts, 15000);
           },
           error: function(err) {
             console.log(err)
           }
         })
       } else {
-        $("main").html('')
-        $("main").append("enter tag to sizzearch<br>(then wait)")
+        return
       }
 
     }
-
-    getTaggedPosts();
 
     function createCanvasas(url, index, height, width) {
 
@@ -209,8 +200,6 @@
     }
 
     function makeFloor() {
-
-      // var floorTexture = THREE.
 
       var floorMaterial = new THREE.MeshBasicMaterial({color: 0xdedede});
 
