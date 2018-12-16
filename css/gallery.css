@@ -534,11 +534,10 @@ a {
     max-height: 100px;
     max-width: 100px;
     margin: auto;
-    background-image: url("/assets/brand/rem-eye-trans.png");
+    background-image: url("assets/brand/rem-eye-trans.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
   }
 
 }
-
